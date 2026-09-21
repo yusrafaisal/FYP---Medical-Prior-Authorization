@@ -1,0 +1,1901 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "simponi_aria__uhc__commercial",
+  "status": "draft",
+  "policy_source": {
+    "policy_number": "2026D0051S",
+    "effective_date": "2026-03-01",
+    "retrieved_date": "2026-09-21",
+    "document_sha256": "4541eaaa5b5aa1236de1a95bdfca565eef30d33973c974c551df13d84c9fdae4",
+    "pdf_path": "policies/simponi-aria_uhc.pdf",
+    "payer_name": "UnitedHealthcare",
+    "line_of_business": "commercial",
+    "predecessor_policy_number": "2025D0051R",
+    "related_policies": []
+  },
+  "service": {
+    "drug_name": "Simponi Aria",
+    "generic_name": "golimumab",
+    "manufacturer": "Janssen",
+    "route": "iv_infusion",
+    "hcpcs_codes": [
+      {
+        "code": "J1602",
+        "description": "Injection, golimumab, 1 mg, for intravenous use"
+      }
+    ],
+    "admin_cpt_codes": []
+  },
+  "payer": {
+    "payer_id": "uhc",
+    "payer_name": "UnitedHealthcare",
+    "line_of_business": "commercial",
+    "provider_template_version": "1.0"
+  },
+  "benefit_routing": {
+    "benefit_type": "medical",
+    "applies_to_this_request": true,
+    "routing_notes": "Simponi Aria injection is under medical benefit, but Simponi for self-administered injection is under pharmacy benefit, except for UnitedHealthcare of California plans with a delegated provider group where it may be under medical benefit.",
+    "site_of_care_policy_link": null,
+    "medicare_advantage_precedence": null
+  },
+  "indications": [
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "M05.A",
+          "description": "Abnormal rheumatoid factor and anti-citrullinated protein antibody with rheumatoid arthritis"
+        },
+        {
+          "code": "M05.00",
+          "description": "Felty's syndrome, unspecified site"
+        },
+        {
+          "code": "M05.011",
+          "description": "Felty's syndrome, right shoulder"
+        },
+        {
+          "code": "M05.012",
+          "description": "Felty's syndrome, left shoulder"
+        },
+        {
+          "code": "M05.019",
+          "description": "Felty's syndrome, unspecified shoulder"
+        },
+        {
+          "code": "M05.021",
+          "description": "Felty's syndrome, right elbow"
+        },
+        {
+          "code": "M05.022",
+          "description": "Felty's syndrome, left elbow"
+        },
+        {
+          "code": "M05.029",
+          "description": "Felty's syndrome, unspecified elbow"
+        },
+        {
+          "code": "M05.031",
+          "description": "Felty's syndrome, right wrist"
+        },
+        {
+          "code": "M05.032",
+          "description": "Felty's syndrome, left wrist"
+        },
+        {
+          "code": "M05.039",
+          "description": "Felty's syndrome, unspecified wrist"
+        },
+        {
+          "code": "M05.041",
+          "description": "Felty's syndrome, right hand"
+        },
+        {
+          "code": "M05.042",
+          "description": "Felty's syndrome, left hand"
+        },
+        {
+          "code": "M05.049",
+          "description": "Felty's syndrome, unspecified hand"
+        },
+        {
+          "code": "M05.051",
+          "description": "Felty's syndrome, right hip"
+        },
+        {
+          "code": "M05.052",
+          "description": "Felty's syndrome, left hip"
+        },
+        {
+          "code": "M05.059",
+          "description": "Felty's syndrome, unspecified hip"
+        },
+        {
+          "code": "M05.061",
+          "description": "Felty's syndrome, right knee"
+        },
+        {
+          "code": "M05.062",
+          "description": "Felty's syndrome, left knee"
+        },
+        {
+          "code": "M05.069",
+          "description": "Felty's syndrome, unspecified knee"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven Initial Therapy Criteria for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active rheumatoid arthritis (RA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Methotrexate or Contraindication",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.proven.init.concurrent_mtx",
+                    "criterion_type": "combination_exclusion",
+                    "description": "Patient is receiving concurrent therapy with methotrexate",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "concurrent_methotrexate",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Simponi Aria Proven Summary",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.proven.init.mtx_contraindication",
+                    "criterion_type": "combination_exclusion",
+                    "description": "History of contraindication or intolerance to methotrexate",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "methotrexate_contraindication_intolerance",
+                    "fhir_resource_hint": "Coverage",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Simponi Aria Proven Summary",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.init.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to US Food and Drug Administration (FDA) labeled dosing for rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia (certolizumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Rinvoq (upadacitinib)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven Continuation Therapy Criteria for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.cont.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response to Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.cont.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria dosing for rheumatoid arthritis is in accordance with the FDA labeled dosing",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia (certolizumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Rinvoq (upadacitinib)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Simponi Aria Proven Summary",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically Necessary Initial Therapy Criteria for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active rheumatoid arthritis (RA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "DMARD Failure or Prior Treatment with Immunomodulator",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.mn.init.step_therapy_dmard",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure intolerance to a 3-month trial of one non-biologic DMARD (e.g., methotrexate, leflunomide, sulfasalazine, hydroxychloroquine) at maximally indicated doses, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 90,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 4,
+                      "section": "Simponi Aria Medically Necessary Summary",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.mn.init.prior_immunomodulator",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of rheumatoid arthritis [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)]",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_systemic_targeted_immunomodulator",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 4,
+                      "section": "Simponi Aria Medically Necessary Summary",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.mn.init.currently_on_drug",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Simponi Aria",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 4,
+                      "section": "Simponi Aria Medically Necessary Summary",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to US Food and Drug Administration (FDA) labeled dosing for rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia (certolizumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Rinvoq (upadacitinib)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically Necessary Continuation Therapy Criteria for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.cont.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response to Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.cont.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria dosing for rheumatoid arthritis is in accordance with the FDA labeled dosing",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia (certolizumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Rinvoq (upadacitinib)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Simponi Aria Medically Necessary Summary",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "L40.50",
+          "description": "Arthropathic psoriasis, unspecified"
+        },
+        {
+          "code": "L40.51",
+          "description": "Distal interphalangeal psoriatic arthropathy"
+        },
+        {
+          "code": "L40.52",
+          "description": "Psoriatic arthritis mutilans"
+        },
+        {
+          "code": "L40.53",
+          "description": "Psoriatic spondylitis"
+        },
+        {
+          "code": "L40.54",
+          "description": "Psoriatic juvenile arthropathy"
+        },
+        {
+          "code": "L40.59",
+          "description": "Other psoriatic arthropathy"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven initial therapy criteria for PsA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active psoriatic arthritis (PsA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to US Food and Drug Administration (FDA) labeled dosing for psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cimzia (certolizumab)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Orencia (abatacept)",
+                    "Otezla (apremilast)",
+                    "Rinvoq (upadacitinib)",
+                    "Skyrizi (risankizumab)",
+                    "Taltz (ixekizumab)",
+                    "Tremfya (guselkumab)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven continuation therapy criteria for PsA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.prior_receipt",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response to Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria dosing for psoriatic arthritis is in accordance with the FDA labeled dosing",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cimzia (certolizumab)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Orencia (abatacept)",
+                    "Otezla (apremilast)",
+                    "Rinvoq (upadacitinib)",
+                    "Skyrizi (risankizumab)",
+                    "Taltz (ixekizumab)",
+                    "Tremfya (guselkumab)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary initial therapy criteria for PsA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active psoriatic arthritis (PsA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "MN Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy requirements",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.step_therapy_mtx",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure to a 3-month trial of methotrexate at the maximally indicated dose, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 90,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": null,
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 3,
+                      "section": "MN Initial",
+                      "policy": "Simponi Aria Medical Benefit Drug Policy"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.prior_biologic",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of psoriatic arthritis",
+                    "criticality": "critical",
+                    "parameters": {
+                      "previous_drugs": [
+                        "adalimumab",
+                        "Bimzelx (bimekizumab-bkzx)",
+                        "Cimzia (certolizumab)",
+                        "Cosentyx (secukinumab)",
+                        "Enbrel (etanercept)",
+                        "Orencia (abatacept)",
+                        "Otezla (apremilast)",
+                        "Rinvoq (upadacitinib)",
+                        "Skyrizi (risankizumab)",
+                        "Taltz (ixekizumab)",
+                        "Tremfya (guselkumab)",
+                        "Xeljanz/Xeljanz XR (tofacitinib)",
+                        "ustekinumab"
+                      ]
+                    },
+                    "chart_fact_key": "previous_systemic_treatment",
+                    "fhir_resource_hint": null,
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 3,
+                      "section": "MN Initial",
+                      "policy": "Simponi Aria Medical Benefit Drug Policy"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.current_use_simponi",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Simponi Aria",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 3,
+                      "section": "MN Initial",
+                      "policy": "Simponi Aria Medical Benefit Drug Policy"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to US Food and Drug Administration (FDA) labeled dosing for psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "MN Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cimzia (certolizumab)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Orencia (abatacept)",
+                    "Otezla (apremilast)",
+                    "Rinvoq (upadacitinib)",
+                    "Skyrizi (risankizumab)",
+                    "Taltz (ixekizumab)",
+                    "Tremfya (guselkumab)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "MN Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a Rheumatologist or Dermatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "Rheumatologist",
+                    "Dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "MN Initial",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary continuation therapy criteria for PsA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.prior_receipt",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response to Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria dosing for psoriatic arthritis is in accordance with the FDA labeled dosing",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cimzia (certolizumab)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Orencia (abatacept)",
+                    "Otezla (apremilast)",
+                    "Rinvoq (upadacitinib)",
+                    "Skyrizi (risankizumab)",
+                    "Taltz (ixekizumab)",
+                    "Tremfya (guselkumab)",
+                    "Xeljanz/Xeljanz XR (tofacitinib)",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": "Simponi Aria Medical Benefit Drug Policy"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "as",
+      "indication_name": "Ankylosing Spondylitis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven initial therapy criteria for ankylosing spondylitis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.initial.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active ankylosing spondylitis (AS)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_as_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.initial.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to US Food and Drug Administration (FDA) labeled dosing for ankylosing spondylitis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.initial.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimekizumab-bkzx",
+                    "certolizumab",
+                    "secukinumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "ixekizumab",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven continuation criteria for ankylosing spondylitis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.continuation.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.continuation.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response to Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.continuation.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria dosing for ankylosing spondylitis is in accordance with the FDA labeled dosing",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.proven.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimekizumab-bkzx",
+                    "certolizumab",
+                    "secukinumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "ixekizumab",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary initial therapy criteria for ankylosing spondylitis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.initial.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active ankylosing spondylitis (AS)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_as_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "One of the step therapy criteria",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as.medically_necessary.initial.step_nsaids",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure to two NSAIDs at the maximally indicated doses, each used for at least 4 weeks, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 28,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_nsaid_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 2,
+                      "section": "Medically Necessary Criteria",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as.medically_necessary.initial.step_immunomodulator",
+                    "criterion_type": "step_therapy",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of ankylosing spondylitis",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": false
+                    },
+                    "chart_fact_key": "prior_immunomodulator_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 2,
+                      "section": "Medically Necessary Criteria",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.initial.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient is currently on Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "currently_on_simponi_aria",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.initial.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to US Food and Drug Administration (FDA) labeled dosing for ankylosing spondylitis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.initial.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimekizumab-bkzx",
+                    "certolizumab",
+                    "secukinumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "ixekizumab",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.initial.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary continuation criteria for ankylosing spondylitis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.continuation.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.continuation.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response to Simponi Aria",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.continuation.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria dosing for ankylosing spondylitis is in accordance with the FDA labeled dosing",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.medically_necessary.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimekizumab-bkzx",
+                    "certolizumab",
+                    "secukinumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "ixekizumab",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically Necessary Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Polyarticular Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven criteria for initial therapy for polyarticular juvenile idiopathic arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.init.diagnosis_moderate_severe",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active polyarticular juvenile idiopathic arthritis (PJIA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [
+                  "Diagnosis documentation in medical record indicating moderately to severely active PJIA"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.init.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to U.S. Food and Drug Administration (FDA) labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Dosing plan following FDA guidelines"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_systemic_immunomodulator",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [
+                  "Medication list showing absence of concurrent systemic targeted immunomodulators"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven criteria for continuation therapy for polyarticular juvenile idiopathic arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [
+                  "Evidence of previous Simponi Aria infusion"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.cont.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Clinical notes showing improvement in PJIA symptoms"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.cont.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is dosed according to FDA labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Dosing plan following FDA guidelines"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_systemic_immunomodulator",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [
+                  "Medication list showing absence of concurrent systemic targeted immunomodulators"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Proven Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary criteria for initial therapy for polyarticular juvenile idiopathic arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.diagnosis_moderate_severe",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active polyarticular juvenile idiopathic arthritis (PJIA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [
+                  "Diagnosis documentation in medical record indicating moderately to severely active PJIA"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is initiated and titrated according to U.S. Food and Drug Administration (FDA) labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Dosing plan following FDA guidelines"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_systemic_immunomodulator",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [
+                  "Medication list showing absence of concurrent systemic targeted immunomodulators"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [
+                  "Consultation notes from a rheumatologist"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary criteria for continuation therapy for polyarticular juvenile idiopathic arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Simponi Aria injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_simponi_aria_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [
+                  "Evidence of previous Simponi Aria infusion"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Clinical notes showing improvement in PJIA symptoms"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Simponi Aria is dosed according to FDA labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Dosing plan following FDA guidelines"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Simponi Aria in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Orencia (abatacept), Rinvoq (upadacitinib), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_systemic_immunomodulator",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [
+                  "Medication list showing absence of concurrent systemic targeted immunomodulators"
+                ],
+                "source": {
+                  "page": 5,
+                  "section": "Medically Necessary Criteria",
+                  "policy": "UnitedHealthcare Policy"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "review": {
+    "reviewer": null,
+    "review_date": null,
+    "confidence": null,
+    "notes": "Auto-extracted by pipeline v1 from simponi-aria_uhc.pdf. Requires human review before activation.",
+    "golden_cases_added": 0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "payer_id": "uhc",
+  "payer_name": "UnitedHealthcare",
+  "version": "1.0",
+  "section_map": {
+    "keep": {
+      "Coverage Rationale": ["Coverage Rationale", "Coverage Criteria"],
+      "Applicable Codes": ["Applicable Codes", "Procedure Codes", "Diagnosis Codes"],
+      "Policy History": ["Policy History", "Policy History/Revision Information"],
+      "Unproven": ["Unproven", "Not Medically Necessary"],
+      "NCCN Recommended Uses": ["NCCN Recommended Uses", "NCCN"],
+      "Header": ["Application", "Policy Number", "Effective Date"]
+    },
+    "skip": [
+      "Background",
+      "Benefit Considerations",
+      "Clinical Evidence",
+      "References",
+      "Instructions for Use",
+      "U.S. Food and Drug Administration",
+      "Professional Societies"
+    ]
+  },
+  "tier_detection": {
+    "pattern": ["proven", "medically necessary"],
+    "style": "dual_tier"
+  },
+  "indication_detection": {
+    "style": "subsection_headers",
+    "phase_keywords": {
+      "initial": ["initial therapy", "initial authorization"],
+      "continuation": ["continuation of therapy", "continuation therapy"]
+    }
+  }
+}

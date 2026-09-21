@@ -1,0 +1,2779 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "cimzia__uhc__commercial",
+  "status": "draft",
+  "policy_source": {
+    "policy_number": "2026D0083L",
+    "effective_date": "2026-02-01",
+    "retrieved_date": "2026-09-21",
+    "document_sha256": "617d50f31e6e0458eee2c3dc7312d44f9217a8ff07e088644f5c00a7e4b97347",
+    "pdf_path": "policies/cimzia_uhc.pdf",
+    "payer_name": "UnitedHealthcare",
+    "line_of_business": "commercial",
+    "predecessor_policy_number": "2025D0083K",
+    "related_policies": []
+  },
+  "service": {
+    "drug_name": "Cimzia",
+    "generic_name": "certolizumab pegol",
+    "manufacturer": "UCB",
+    "route": "iv_infusion",
+    "hcpcs_codes": [
+      {
+        "code": "J0717",
+        "description": "Injection, certolizumab pegol, 1 mg (code may be used when drug administered under the direct supervision of a physician, not for use when drug is self-administered)"
+      }
+    ],
+    "admin_cpt_codes": []
+  },
+  "payer": {
+    "payer_id": "uhc",
+    "payer_name": "UnitedHealthcare",
+    "line_of_business": "commercial",
+    "provider_template_version": "1.0"
+  },
+  "benefit_routing": {
+    "benefit_type": "pharmacy",
+    "applies_to_this_request": true,
+    "routing_notes": "Cimzia for self-administered subcutaneous injection is obtained under the pharmacy benefit, unless otherwise specified. Exception for UnitedHealthcare of California plans may allow obtaining under the medical benefit.",
+    "site_of_care_policy_link": null,
+    "medicare_advantage_precedence": null
+  },
+  "indications": [
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "M05.A",
+          "description": "Abnormal rheumatoid factor and anti-citrullinated protein antibody with rheumatoid arthritis"
+        },
+        {
+          "code": "M05.00",
+          "description": "Felty's syndrome, unspecified site"
+        },
+        {
+          "code": "M05.011",
+          "description": "Felty's syndrome, right shoulder"
+        },
+        {
+          "code": "M05.012",
+          "description": "Felty's syndrome, left shoulder"
+        },
+        {
+          "code": "M05.019",
+          "description": "Felty's syndrome, unspecified shoulder"
+        },
+        {
+          "code": "M05.021",
+          "description": "Felty's syndrome, right elbow"
+        },
+        {
+          "code": "M05.022",
+          "description": "Felty's syndrome, left elbow"
+        },
+        {
+          "code": "M05.029",
+          "description": "Felty's syndrome, unspecified elbow"
+        },
+        {
+          "code": "M05.031",
+          "description": "Felty's syndrome, right wrist"
+        },
+        {
+          "code": "M05.032",
+          "description": "Felty's syndrome, left wrist"
+        },
+        {
+          "code": "M05.039",
+          "description": "Felty's syndrome, unspecified wrist"
+        },
+        {
+          "code": "M05.041",
+          "description": "Felty's syndrome, right hand"
+        },
+        {
+          "code": "M05.042",
+          "description": "Felty's syndrome, left hand"
+        },
+        {
+          "code": "M05.049",
+          "description": "Felty's syndrome, unspecified hand"
+        },
+        {
+          "code": "M05.051",
+          "description": "Felty's syndrome, right hip"
+        },
+        {
+          "code": "M05.052",
+          "description": "Felty's syndrome, left hip"
+        },
+        {
+          "code": "M05.059",
+          "description": "Felty's syndrome, unspecified hip"
+        },
+        {
+          "code": "M05.061",
+          "description": "Felty's syndrome, right knee"
+        },
+        {
+          "code": "M05.062",
+          "description": "Felty's syndrome, left knee"
+        },
+        {
+          "code": "M05.069",
+          "description": "Felty's syndrome, unspecified knee"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven initial therapy for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.initial.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.initial.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for RA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.initial.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "golimumab",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven continuation therapy for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for RA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "golimumab",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary initial therapy for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.initial.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Prior therapy requirement for RA initial",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.medically_necessary.initial.step_therapy",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure intolerance to a 3 month trial of one non-biologic DMARD at maximally indicated doses, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 90,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 3,
+                      "section": "Rheumatoid Arthritis",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.medically_necessary.initial.prior_biologic_exposure",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of rheumatoid arthritis",
+                    "criticality": "supporting",
+                    "parameters": null,
+                    "chart_fact_key": "prior_biologic",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 3,
+                      "section": "Rheumatoid Arthritis",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.medically_necessary.initial.currently_on_drug",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Cimzia",
+                    "criticality": "supporting",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_cimzia_iv",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 3,
+                      "section": "Rheumatoid Arthritis",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.initial.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "self_administration_unfeasible",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.initial.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for RA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.initial.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "golimumab",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.initial.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary continuation therapy for RA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.continuation.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.continuation.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "self_administration_unfeasible",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.continuation.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for RA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.medically_necessary.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "etanercept",
+                    "baricitinib",
+                    "abatacept",
+                    "upadacitinib",
+                    "golimumab",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 3,
+                  "section": "Rheumatoid Arthritis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "L40.0",
+          "description": "Psoriasis vulgaris"
+        },
+        {
+          "code": "L40.50",
+          "description": "Arthropathic psoriasis, unspecified"
+        },
+        {
+          "code": "L40.51",
+          "description": "Distal interphalangeal psoriatic arthropathy"
+        },
+        {
+          "code": "L40.52",
+          "description": "Psoriatic arthritis mutilans"
+        },
+        {
+          "code": "L40.53",
+          "description": "Psoriatic spondylitis"
+        },
+        {
+          "code": "L40.54",
+          "description": "Psoriatic juvenile arthropathy"
+        },
+        {
+          "code": "L40.59",
+          "description": "Other psoriatic arthropathy"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial proven criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PsA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimzelx",
+                    "cosentyx",
+                    "enbrel",
+                    "orencia",
+                    "otezla",
+                    "rinvoq",
+                    "simponi",
+                    "skyrizi",
+                    "taltz",
+                    "tremfya",
+                    "xeljanz",
+                    "xeljanz xr",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation proven criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.continuation.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.continuation.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PsA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimzelx",
+                    "cosentyx",
+                    "enbrel",
+                    "orencia",
+                    "otezla",
+                    "rinvoq",
+                    "simponi",
+                    "skyrizi",
+                    "taltz",
+                    "tremfya",
+                    "xeljanz",
+                    "xeljanz xr",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial medically necessary criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.step_therapy_methotrexate",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure to a 3 month trial of methotrexate at the maximally indicated dose, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 90,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.prior_biologic_exposure",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of psoriatic arthritis",
+                    "criticality": "supporting",
+                    "parameters": null,
+                    "chart_fact_key": "prior_biologic_ra_psa",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.currently_on_drug",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Cimzia",
+                    "criticality": "supporting",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_cimzia_iv",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "self_administration_inability",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PsA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimzelx",
+                    "cosentyx",
+                    "enbrel",
+                    "orencia",
+                    "otezla",
+                    "rinvoq",
+                    "simponi",
+                    "skyrizi",
+                    "taltz",
+                    "tremfya",
+                    "xeljanz",
+                    "xeljanz xr",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with one of the following: Rheumatologist, Dermatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "Rheumatologist",
+                    "Dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation medically necessary criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.continuation.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.continuation.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or is physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "self_administration_inability",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.continuation.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PsA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "bimzelx",
+                    "cosentyx",
+                    "enbrel",
+                    "orencia",
+                    "otezla",
+                    "rinvoq",
+                    "simponi",
+                    "skyrizi",
+                    "taltz",
+                    "tremfya",
+                    "xeljanz",
+                    "xeljanz xr",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "as_nraxspa",
+      "indication_name": "Ankylosing Spondylitis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial therapy for proven",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active ankylosing spondylitis or non-radiographic axial spondyloarthritis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_as_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.proven.init.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for AS or nr-axSpA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.proven.init.comb_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Simponi (golimumab)",
+                    "Rinvoq (upadacitinib)",
+                    "Taltz (ixekizumab)",
+                    "Xeljanz (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation therapy for proven",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.proven.contin.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.proven.contin.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for AS or nr-axSpA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.proven.contin.comb_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Simponi (golimumab)",
+                    "Rinvoq (upadacitinib)",
+                    "Taltz (ixekizumab)",
+                    "Xeljanz (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial therapy for medically necessary",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active ankylosing spondylitis or non-radiographic axial spondyloarthritis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_as_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Initial",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy or prior treatment",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as_nraxspa.mn.init.step_therapy",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure to two NSAIDs at the maximally indicated doses, each used for at least 4 weeks, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 28,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_nsaid_trial",
+                    "fhir_resource_hint": null,
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "MN Initial",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as_nraxspa.mn.init.prior_exposure",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of ankylosing spondylitis or nr-axSpA",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_biologic_exposure",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "MN Initial",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as_nraxspa.mn.init.currently_on_drug",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Cimzia",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "current_cimzia_use",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "MN Initial",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.init.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prescriber_attestation",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Initial",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.init.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for AS or nr-axSpA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Initial",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.init.comb_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Simponi (golimumab)",
+                    "Rinvoq (upadacitinib)",
+                    "Taltz (ixekizumab)",
+                    "Xeljanz (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Initial",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "supporting",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Initial",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation therapy for medically necessary",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.contin.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.contin.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prescriber_attestation",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.contin.dosing_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for AS or nr-axSpA",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as_nraxspa.mn.contin.comb_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx (bimekizumab-bkzx)",
+                    "Cosentyx (secukinumab)",
+                    "Enbrel (etanercept)",
+                    "Olumiant (baricitinib)",
+                    "Orencia (abatacept)",
+                    "Simponi (golimumab)",
+                    "Rinvoq (upadacitinib)",
+                    "Taltz (ixekizumab)",
+                    "Xeljanz (tofacitinib)"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "MN Continuation",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "cd",
+      "indication_name": "Crohn Disease",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven criteria for initial therapy of Crohn's disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.initial.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active Crohn\u2019s disease",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_cd_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.initial.step_therapy",
+                "criterion_type": "step_therapy",
+                "description": "Inadequate response to conventional therapies (examples include anti-inflammatory drugs, corticosteroids, or oral immunosuppressive agents)",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": false
+                },
+                "chart_fact_key": "prior_conventional_therapy_trial",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.initial.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for CD",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.initial.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Entyvio",
+                    "vedolizumab",
+                    "Omvoh",
+                    "mirikizumab-mrkz",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_targeted_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for initial therapy",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven criteria for continuation of therapy for Crohn's disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.continuation.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.continuation.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for CD",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.proven.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Entyvio",
+                    "vedolizumab",
+                    "Omvoh",
+                    "mirikizumab-mrkz",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_targeted_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 1,
+                  "section": "Proven criteria for continuation of therapy",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary criteria for initial therapy of Crohn's disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.initial.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active Crohn\u2019s disease",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_cd_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "One of the following therapy histories",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cd.medically_necessary.initial.step_therapy",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure to one of the conventional therapies at up to maximally indicated doses unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_conventional_therapy_trial",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 2,
+                      "section": "Medically necessary criteria for initial therapy",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cd.medically_necessary.initial.prior_biologic_exposure",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of Crohn\u2019s disease",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_targeted_immunomodulator_cd",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 2,
+                      "section": "Medically necessary criteria for initial therapy",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cd.medically_necessary.initial.currently_on_drug",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Cimzia",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_cimzia",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 2,
+                      "section": "Medically necessary criteria for initial therapy",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.initial.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prescriber_attestation_inability_to_self_administer",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.initial.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for CD",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.initial.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Entyvio",
+                    "vedolizumab",
+                    "Omvoh",
+                    "mirikizumab-mrkz",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_targeted_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.initial.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a gastroenterologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "gastroenterologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for initial therapy",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary criteria for continuation of therapy for Crohn's disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.continuation.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.continuation.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prescriber_attestation_inability_to_self_administer",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.continuation.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for CD",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.medically_necessary.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Entyvio",
+                    "vedolizumab",
+                    "Omvoh",
+                    "mirikizumab-mrkz",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_targeted_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Medically necessary criteria for continuation of therapy",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Polyarticular Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Cimzia is proven for the treatment of polyarticular juvenile idiopathic arthritis when all of the following criteria are met for initial therapy.",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active polyarticular juvenile idiopathic arthritis (PJIA).",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_active_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Proven criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.init.dosing_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to U.S. Food and Drug Administration (FDA) labeled dosing for polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Proven criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Proven criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "For continuation of therapy under proven criteria.",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Cimzia injection for intravenous infusion.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_cimzia_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Proven criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.cont.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": "Observation",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Proven criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.cont.dosing_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is dosed according to FDA labeled dosing for polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Proven criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.prov.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Proven criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Cimzia is medically necessary for the treatment of polyarticular juvenile idiopathic arthritis when all of the following criteria are met for initial therapy.",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active polyarticular juvenile idiopathic arthritis (PJIA).",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_active_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "self_admin_not_possible",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.dosing_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to U.S. Food and Drug Administration (FDA) labeled dosing for polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist.",
+                "criticality": "supporting",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "For continuation of therapy under medically necessary criteria.",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Cimzia injection for intravenous infusion.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_cimzia_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": "Observation",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration; prescriber must submit explanation.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "self_admin_not_possible",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.dosing_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is dosed according to FDA labeled dosing for polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Orencia",
+                    "abatacept",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy under Medically Necessary criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "plaque_ps",
+      "indication_name": "Plaque Psoriasis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial Proven Criteria for Plaque Psoriasis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.prov.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderate to severe plaque psoriasis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderate to severe"
+                },
+                "chart_fact_key": "diagnosis_ps_moderate_severe",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.prov.init.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PS",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.prov.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "Cosentyx",
+                    "Enbrel",
+                    "Ilumya",
+                    "Otezla",
+                    "Skyrizi",
+                    "Siliq",
+                    "Sotyktu",
+                    "Taltz",
+                    "Tremfya",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation Proven Criteria for Plaque Psoriasis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.prov.cont.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.prov.cont.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PS",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.prov.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "Cosentyx",
+                    "Enbrel",
+                    "Ilumya",
+                    "Otezla",
+                    "Skyrizi",
+                    "Siliq",
+                    "Sotyktu",
+                    "Taltz",
+                    "Tremfya",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial Medically Necessary Criteria for Plaque Psoriasis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderate to severe plaque psoriasis",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderate to severe"
+                },
+                "chart_fact_key": "diagnosis_ps_moderate_severe",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step Therapy Requirement",
+                "children": [
+                  {
+                    "node_type": "group",
+                    "operator": "ALL",
+                    "label": "Topical and Methotrexate Therapy Failure",
+                    "children": [
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "plaque_ps.mn.init.body_surface_area",
+                        "criterion_type": "screening_or_lab",
+                        "description": "Greater than or equal to 3% body surface area involvement, palmoplantar, facial, genital involvement, or severe scalp psoriasis",
+                        "criticality": "supporting",
+                        "parameters": null,
+                        "chart_fact_key": "body_surface_area_involvement",
+                        "fhir_resource_hint": "Observation",
+                        "documentation_examples": [],
+                        "source": {
+                          "page": null,
+                          "section": "Plaque Psoriasis",
+                          "policy": null
+                        }
+                      },
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "plaque_ps.mn.init.topical_therapy_failure",
+                        "criterion_type": "step_therapy",
+                        "description": "History of failure to one of the following topical therapies, unless contraindicated or clinically significant adverse effects are experienced: Corticosteroids, Vitamin D analogs, Tazarotene, Calcineurin inhibitors, Anthralin, Coal tar",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true
+                        },
+                        "chart_fact_key": "prior_topical_therapy_trial",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {
+                          "page": null,
+                          "section": "Plaque Psoriasis",
+                          "policy": null
+                        }
+                      },
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "plaque_ps.mn.init.methotrexate_failure",
+                        "criterion_type": "step_therapy",
+                        "description": "History of failure to a 3 month trial of methotrexate at the maximally indicated dose, unless contraindicated or clinically significant adverse effects are experienced",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": 90,
+                          "at_max_dose_required": true,
+                          "contraindication_excuses_trial": true
+                        },
+                        "chart_fact_key": "prior_methotrexate_trial",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {
+                          "page": null,
+                          "section": "Plaque Psoriasis",
+                          "policy": null
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "plaque_ps.mn.init.prior_targeted_immunomodulator",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of plaque psoriasis",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_targeted_immunomodulator_exposure",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Plaque Psoriasis",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "plaque_ps.mn.init.currently_on_cimzia",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Cimzia",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_cimzia_iv",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Plaque Psoriasis",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.init.prescriber_attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "prescriber_attestation_unable_self_admin",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.init.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PS",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "Cosentyx",
+                    "Enbrel",
+                    "Ilumya",
+                    "Otezla",
+                    "Skyrizi",
+                    "Siliq",
+                    "Sotyktu",
+                    "Taltz",
+                    "Tremfya",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a dermatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation Medically Necessary Criteria for Plaque Psoriasis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.cont.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.cont.prescriber_attestation",
+                "criterion_type": "attestation",
+                "description": "Prescriber attestation that the patient or caregiver is not able to be trained or are physically unable to administer Cimzia FDA labeled for self-administration",
+                "criticality": "supporting",
+                "parameters": null,
+                "chart_fact_key": "prescriber_attestation_unable_self_admin",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.cont.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Cimzia is initiated and titrated according to US FDA labeled dosing for PS",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.mn.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Cimzia in combination with a systemic targeted immunomodulator for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "Cosentyx",
+                    "Enbrel",
+                    "Ilumya",
+                    "Otezla",
+                    "Skyrizi",
+                    "Siliq",
+                    "Sotyktu",
+                    "Taltz",
+                    "Tremfya",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Plaque Psoriasis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "review": {
+    "reviewer": null,
+    "review_date": null,
+    "confidence": null,
+    "notes": "Auto-extracted by pipeline v1 from cimzia_uhc.pdf. Requires human review before activation.",
+    "golden_cases_added": 0
+  }
+}

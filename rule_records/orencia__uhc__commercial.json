@@ -1,0 +1,1915 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "orencia__uhc__commercial",
+  "status": "draft",
+  "policy_source": {
+    "policy_number": "2026D0039W",
+    "effective_date": "2026-06-01",
+    "retrieved_date": "2026-09-21",
+    "document_sha256": "7e5046324ddd10dee9428afb56a2ff0b00aaa977b0fb1ddcc501f32b074e19ed",
+    "pdf_path": "policies/orencia_uhc.pdf",
+    "payer_name": "UnitedHealthcare",
+    "line_of_business": "commercial",
+    "predecessor_policy_number": null,
+    "related_policies": []
+  },
+  "service": {
+    "drug_name": "Orencia",
+    "generic_name": "abatacept",
+    "manufacturer": "Bristol Myers Squibb",
+    "route": "iv_infusion",
+    "hcpcs_codes": [
+      {
+        "code": "J0129",
+        "description": "Injection, abatacept, 10 mg"
+      }
+    ],
+    "admin_cpt_codes": []
+  },
+  "payer": {
+    "payer_id": "uhc",
+    "payer_name": "UnitedHealthcare",
+    "line_of_business": "commercial",
+    "provider_template_version": "1.0"
+  },
+  "benefit_routing": {
+    "benefit_type": "medical",
+    "applies_to_this_request": true,
+    "routing_notes": "For members enrolled in UnitedHealthcare of California plans with a delegated provider group conducting the prior authorization review, the self-administered Orencia may be obtained under the medical benefit.",
+    "site_of_care_policy_link": null,
+    "medicare_advantage_precedence": null
+  },
+  "indications": [
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "M05.A",
+          "description": "Abnormal rheumatoid factor and anti-citrullinated protein antibody with rheumatoid arthritis"
+        },
+        {
+          "code": "M05.00",
+          "description": "Felty's syndrome, unspecified site"
+        },
+        {
+          "code": "M05.011",
+          "description": "Felty's syndrome, right shoulder"
+        },
+        {
+          "code": "M05.012",
+          "description": "Felty's syndrome, left shoulder"
+        },
+        {
+          "code": "M05.019",
+          "description": "Felty's syndrome, unspecified shoulder"
+        },
+        {
+          "code": "M05.021",
+          "description": "Felty's syndrome, right elbow"
+        },
+        {
+          "code": "M05.022",
+          "description": "Felty's syndrome, left elbow"
+        },
+        {
+          "code": "M05.029",
+          "description": "Felty's syndrome, unspecified elbow"
+        },
+        {
+          "code": "M05.031",
+          "description": "Felty's syndrome, right wrist"
+        },
+        {
+          "code": "M05.032",
+          "description": "Felty's syndrome, left wrist"
+        },
+        {
+          "code": "M05.039",
+          "description": "Felty's syndrome, unspecified wrist"
+        },
+        {
+          "code": "M05.041",
+          "description": "Felty's syndrome, right hand"
+        },
+        {
+          "code": "M05.042",
+          "description": "Felty's syndrome, left hand"
+        },
+        {
+          "code": "M05.049",
+          "description": "Felty's syndrome, unspecified hand"
+        },
+        {
+          "code": "M05.051",
+          "description": "Felty's syndrome, right hip"
+        },
+        {
+          "code": "M05.052",
+          "description": "Felty's syndrome, left hip"
+        },
+        {
+          "code": "M05.059",
+          "description": "Felty's syndrome, unspecified hip"
+        },
+        {
+          "code": "M05.061",
+          "description": "Felty's syndrome, right knee"
+        },
+        {
+          "code": "M05.062",
+          "description": "Felty's syndrome, left knee"
+        },
+        {
+          "code": "M05.069",
+          "description": "Felty's syndrome, unspecified knee"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven Initial Therapy for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active rheumatoid arthritis (RA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [
+                  "Chart notes describing RA diagnosis"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.init.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is initiated and titrated according to FDA labeled dosing for rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Initial Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven Continuation Therapy for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Orencia injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_orencia_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Clinical notes documenting improved symptoms"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is dosed according to FDA labeled dosing for rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.proven.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Proven Continuation Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically Necessary Initial Therapy for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active rheumatoid arthritis (RA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [
+                  "Chart notes describing RA diagnosis"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Initial Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step Therapy or Prior Treatment",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.mn.init.step_therapy_dmard",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure intolerance to a 3-month trial of one non-biologic DMARD",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": 90,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Medically Necessary Initial Criteria",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.mn.init.prior_biologic_exposure",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for RA",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_targeted_immunomodulator_exposure",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Medically Necessary Initial Criteria",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.mn.init.currently_on_drug",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Orencia",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "prior_receipt_of_orencia",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "Medically Necessary Initial Criteria",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is initiated and titrated according to FDA labeled dosing for rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Initial Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Initial Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "supporting",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Initial Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically Necessary Continuation Therapy for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.continuation.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Orencia injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_orencia_iv",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Continuation Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.continuation.positive_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [
+                  "Clinical notes documenting improved symptoms"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Continuation Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.continuation.dosing_per_fda",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is dosed according to FDA labeled dosing for rheumatoid arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Continuation Criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.mn.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "tofacitinib",
+                    "Xeljanz XR"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Medically Necessary Continuation Criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "L40.50",
+          "description": "Arthropathic psoriasis, unspecified"
+        },
+        {
+          "code": "L40.51",
+          "description": "Distal interphalangeal psoriatic arthropathy"
+        },
+        {
+          "code": "L40.52",
+          "description": "Psoriatic arthritis mutilans"
+        },
+        {
+          "code": "L40.53",
+          "description": "Psoriatic spondylitis"
+        },
+        {
+          "code": "L40.54",
+          "description": "Psoriatic juvenile arthropathy"
+        },
+        {
+          "code": "L40.59",
+          "description": "Other psoriatic arthropathy"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven initial therapy for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active psoriatic arthritis (PsA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven initial therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is initiated and titrated according to FDA labeled dosing for psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven initial therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "bimekizumab-bkzx",
+                    "Cimzia",
+                    "certolizumab",
+                    "Cosentyx",
+                    "secukinumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Otezla",
+                    "apremilast",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Taltz",
+                    "ixekizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven initial therapy criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Proven continuation therapy for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Orencia injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_orencia_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven continuation therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of a positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven continuation therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is dosed according to FDA labeled dosing for psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven continuation therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.proven.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "bimekizumab-bkzx",
+                    "Cimzia",
+                    "certolizumab",
+                    "Cosentyx",
+                    "secukinumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Otezla",
+                    "apremilast",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Taltz",
+                    "ixekizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Proven continuation therapy criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary initial therapy for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of active psoriatic arthritis (PsA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "active"
+                },
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary initial therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.step_therapy_mtx",
+                    "criterion_type": "step_therapy",
+                    "description": "History of failure to a 3-month trial of methotrexate at the maximally indicated dose, unless contraindicated or clinically significant adverse effects are experienced",
+                    "criticality": "supporting",
+                    "parameters": {
+                      "min_trial_days": 90,
+                      "at_max_dose_required": true,
+                      "contraindication_excuses_trial": true
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 4,
+                      "section": "Medically necessary initial therapy criteria",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.step_therapy_immunomodulator",
+                    "criterion_type": "step_therapy",
+                    "description": "Patient has been previously treated with a systemic targeted immunomodulator FDA-approved for the treatment of psoriatic arthritis",
+                    "criticality": "supporting",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": false
+                    },
+                    "chart_fact_key": "prior_immunomodulator_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 4,
+                      "section": "Medically necessary initial therapy criteria",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.mn.init.step_therapy_currently_on_orencia",
+                    "criterion_type": "currently_on_drug",
+                    "description": "Patient is currently on Orencia",
+                    "criticality": "supporting",
+                    "parameters": null,
+                    "chart_fact_key": "currently_on_orencia",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": 4,
+                      "section": "Medically necessary initial therapy criteria",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is initiated and titrated according to FDA labeled dosing for psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary initial therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "bimekizumab-bkzx",
+                    "Cimzia",
+                    "certolizumab",
+                    "Cosentyx",
+                    "secukinumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Otezla",
+                    "apremilast",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Taltz",
+                    "ixekizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary initial therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist or dermatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "Rheumatologist",
+                    "Dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary initial therapy criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Medically necessary continuation therapy for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Orencia injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_orencia_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary continuation therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of a positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary continuation therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is dosed according to FDA labeled dosing for psoriatic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary continuation therapy criteria",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.mn.cont.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Bimzelx",
+                    "bimekizumab-bkzx",
+                    "Cimzia",
+                    "certolizumab",
+                    "Cosentyx",
+                    "secukinumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Otezla",
+                    "apremilast",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Skyrizi",
+                    "risankizumab",
+                    "Taltz",
+                    "ixekizumab",
+                    "Tremfya",
+                    "guselkumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib",
+                    "ustekinumab"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": 4,
+                  "section": "Medically necessary continuation therapy criteria",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Polyarticular Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial proven criteria for PJIA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active polyarticular juvenile idiopathic arthritis (PJIA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Diagnosis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.init.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is initiated and titrated according to U.S. Food and Drug Administration (FDA) labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Dosing",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Rinvoq (upadacitinib), Simponi (golimumab), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Combination Exclusion",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation proven criteria for PJIA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.continuation.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Orencia injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_orencia_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Current Therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.continuation.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Clinical Response",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.continuation.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is dosed according to FDA labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Dosing",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.proven.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Rinvoq (upadacitinib), Simponi (golimumab), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Combination Exclusion",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Initial medically necessary criteria for PJIA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of moderately to severely active polyarticular juvenile idiopathic arthritis (PJIA)",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "moderately to severely active"
+                },
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Diagnosis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is initiated and titrated according to U.S. Food and Drug Administration (FDA) labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Dosing",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Rinvoq (upadacitinib), Simponi (golimumab), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Combination Exclusion",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.init.prescriber_specialty",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with a rheumatologist",
+                "criticality": "critical",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "Practitioner",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Prescriber Specialty",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Continuation medically necessary criteria for PJIA",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.continuation.currently_on_drug",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has previously received Orencia injection for intravenous infusion",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "prior_receipt_of_orencia_iv",
+                "fhir_resource_hint": "MedicationAdministration",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Current Therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.continuation.positive_clinical_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Clinical Response",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.continuation.dosing_per_fda_label",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Orencia is dosed according to FDA labeled dosing for polyarticular juvenile idiopathic arthritis",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "dosing_regimen",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Dosing",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.mn.continuation.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is not receiving Orencia in combination with a systemic targeted immunomodulator [e.g., adalimumab, Cimzia (certolizumab), Enbrel (etanercept), Olumiant (baricitinib), Rinvoq (upadacitinib), Simponi (golimumab), Xeljanz/Xeljanz XR (tofacitinib)] for treatment of the same indication",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "adalimumab",
+                    "Cimzia",
+                    "certolizumab",
+                    "Enbrel",
+                    "etanercept",
+                    "Olumiant",
+                    "baricitinib",
+                    "Rinvoq",
+                    "upadacitinib",
+                    "Simponi",
+                    "golimumab",
+                    "Xeljanz",
+                    "Xeljanz XR",
+                    "tofacitinib"
+                  ],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_immunomodulators",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {
+                  "page": 2,
+                  "section": "Combination Exclusion",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "chronic_gvhd",
+      "indication_name": "Chronic Graft-Versus-Host Disease",
+      "coverage_status": "covered",
+      "icd10_codes": [
+        {
+          "code": "D89.811",
+          "description": "Chronic graft-versus-host disease"
+        },
+        {
+          "code": "D89.812",
+          "description": "Acute on chronic graft versus host disease"
+        }
+      ],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "For initial therapy, all of the following",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "chronic_gvhd.proven.init.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of steroid-refractory chronic GVHD",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "steroid-refractory"
+                },
+                "chart_fact_key": "diagnosis_steroid_refractory_chronic_gvhd",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For initial therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "One of the following",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "chronic_gvhd.proven.init.comb_corticosteroids",
+                    "criterion_type": "combination_exclusion",
+                    "description": "Patient is receiving Orencia in combination with systemic corticosteroids",
+                    "criticality": "critical",
+                    "parameters": {
+                      "excluded_drugs": [
+                        "systemic corticosteroids"
+                      ],
+                      "same_indication_scope": true
+                    },
+                    "chart_fact_key": "concurrent_systemic_corticosteroids",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "For initial therapy",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "chronic_gvhd.proven.init.intolerance_corticosteroids",
+                    "criterion_type": "attestation",
+                    "description": "Patient is intolerant to systemic corticosteroid therapy",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "intolerant_systemic_corticosteroids",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "For initial therapy",
+                      "policy": null
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "For continuation of therapy, all of the following",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "chronic_gvhd.proven.cont.pos_response",
+                "criterion_type": "positive_clinical_response",
+                "description": "Documentation of positive clinical response",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "positive_clinical_response",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "chronic_gvhd.proven.cont.chronic_gvhd",
+                "criterion_type": "diagnosis",
+                "description": "Patient continues to experience chronic GVHD",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "diagnosis_chronic_gvhd",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "For continuation of therapy",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "One of the following",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "chronic_gvhd.proven.cont.comb_corticosteroids",
+                    "criterion_type": "combination_exclusion",
+                    "description": "Patient is receiving Orencia in combination with systemic corticosteroids",
+                    "criticality": "critical",
+                    "parameters": {
+                      "excluded_drugs": [
+                        "systemic corticosteroids"
+                      ],
+                      "same_indication_scope": true
+                    },
+                    "chart_fact_key": "concurrent_systemic_corticosteroids",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "For continuation of therapy",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "chronic_gvhd.proven.cont.intolerance_corticosteroids",
+                    "criterion_type": "attestation",
+                    "description": "Patient is intolerant to systemic corticosteroid therapy",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "intolerant_systemic_corticosteroids",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "For continuation of therapy",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "chronic_gvhd.proven.cont.tapered_off_corticosteroids",
+                    "criterion_type": "attestation",
+                    "description": "Patient has been successfully tapered off of corticosteroid therapy",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "tapered_off_systemic_corticosteroids",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {
+                      "page": null,
+                      "section": "For continuation of therapy",
+                      "policy": null
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "agvhd_prophylaxis",
+      "indication_name": "Acute Graft-Versus-Host Disease Prophylaxis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 4,
+          "auth_duration_unit": "doses",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "All of the following criteria must be met:",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.proven.initial.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "Patient is at least 2 years old",
+                "criticality": "critical",
+                "parameters": {
+                  "minimum_age": 2
+                },
+                "chart_fact_key": "age_requirement",
+                "fhir_resource_hint": "Observation",
+                "documentation_examples": [
+                  "Date of Birth"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Acute Graft-Versus-Host Disease Prophylaxis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "One of the following:",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "agvhd_prophylaxis.proven.initial.procedure_requirement_matched_donor",
+                    "criterion_type": "procedure_requirement",
+                    "description": "Patient is undergoing hematopoietic stem cell transplantation (HSCT) from a matched donor",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "procedure_hsct_matched_donor",
+                    "fhir_resource_hint": "Procedure",
+                    "documentation_examples": [
+                      "Transplantation records"
+                    ],
+                    "source": {
+                      "page": null,
+                      "section": "Acute Graft-Versus-Host Disease Prophylaxis",
+                      "policy": null
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "agvhd_prophylaxis.proven.initial.procedure_requirement_allele_mismatched_donor",
+                    "criterion_type": "procedure_requirement",
+                    "description": "Patient is undergoing HSCT from a 1 allele-mismatched unrelated donor",
+                    "criticality": "critical",
+                    "parameters": null,
+                    "chart_fact_key": "procedure_hsct_mismatched_donor",
+                    "fhir_resource_hint": "Procedure",
+                    "documentation_examples": [
+                      "Transplantation records"
+                    ],
+                    "source": {
+                      "page": null,
+                      "section": "Acute Graft-Versus-Host Disease Prophylaxis",
+                      "policy": null
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.proven.initial.combination_exclusion_calcineurin",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is receiving Orencia in combination with a calcineurin inhibitor",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "calcineurin inhibitor"
+                  ],
+                  "same_indication_scope": false
+                },
+                "chart_fact_key": "concurrent_calcineurin_inhibitor",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [
+                  "Medication list"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Acute Graft-Versus-Host Disease Prophylaxis",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.proven.initial.combination_exclusion_methotrexate",
+                "criterion_type": "combination_exclusion",
+                "description": "Patient is receiving Orencia in combination with methotrexate",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": [
+                    "methotrexate"
+                  ],
+                  "same_indication_scope": false
+                },
+                "chart_fact_key": "concurrent_methotrexate",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [
+                  "Medication list"
+                ],
+                "source": {
+                  "page": null,
+                  "section": "Acute Graft-Versus-Host Disease Prophylaxis",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "checkpoint_toxicity",
+      "indication_name": "Immune Checkpoint Inhibitor-Related Toxicities",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 4,
+          "auth_duration_unit": "doses",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "All the following criteria must be met",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "checkpoint_toxicity.prov.init.recent_checkpoint_inhibitor",
+                "criterion_type": "diagnosis",
+                "description": "Patient has recently received checkpoint inhibitor therapy [e.g., Keytruda (Pembrolizumab), Opdivo (Nivolumab)]",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": null
+                },
+                "chart_fact_key": "recent_checkpoint_inhibitor_therapy",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Orencia is proven and/or medically necessary for the treatment of immune checkpoint inhibitor-related toxicities",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "checkpoint_toxicity.prov.init.severe_to_life_threatening_diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "Diagnosis of severe (G3) or life threatening (G4) immunotherapy-related myocarditis, pericarditis, arrhythmias, or impaired ventricular function, or conduction abnormalities",
+                "criticality": "critical",
+                "parameters": {
+                  "severity_qualifier": "severe or life-threatening"
+                },
+                "chart_fact_key": "checkpoint_toxicity_severity_diagnosis",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Orencia is proven and/or medically necessary for the treatment of immune checkpoint inhibitor-related toxicities",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "checkpoint_toxicity.prov.init.no_improvement_after_methylprednisolone",
+                "criterion_type": "attestation",
+                "description": "No improvement of toxicity within 24 hours of starting pulse-dose methylprednisolone",
+                "criticality": "critical",
+                "parameters": null,
+                "chart_fact_key": "methylprednisolone_no_improvement",
+                "fhir_resource_hint": null,
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Orencia is proven and/or medically necessary for the treatment of immune checkpoint inhibitor-related toxicities",
+                  "policy": null
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "checkpoint_toxicity.prov.init.tried_infliximab",
+                "criterion_type": "step_therapy",
+                "description": "History of failure, contraindication, or intolerance to infliximab (e.g., Inflectra, Remicade)",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": true
+                },
+                "chart_fact_key": "prior_infliximab_trial",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {
+                  "page": null,
+                  "section": "Orencia is proven and/or medically necessary for the treatment of immune checkpoint inhibitor-related toxicities",
+                  "policy": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "indication_name": "Multiple sclerosis",
+      "reason": "unproven_and_not_mn",
+      "source": "UnitedHealthcare"
+    },
+    {
+      "indication_name": "Systemic lupus erythematosus",
+      "reason": "unproven_and_not_mn",
+      "source": "UnitedHealthcare"
+    },
+    {
+      "indication_name": "Uveitis associated with Beh\u00e7et\u2019s disease",
+      "reason": "unproven_and_not_mn",
+      "source": "UnitedHealthcare"
+    }
+  ],
+  "review": {
+    "reviewer": null,
+    "review_date": null,
+    "confidence": null,
+    "notes": "Auto-extracted by pipeline v1 from orencia_uhc.pdf. Requires human review before activation.",
+    "golden_cases_added": 0
+  }
+}

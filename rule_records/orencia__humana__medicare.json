@@ -1,0 +1,587 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "orencia__humana__medicare",
+  "status": "draft",
+  "policy_source": {
+    "policy_number": "UNKNOWN",
+    "effective_date": "2026-01-01",
+    "retrieved_date": "2026-09-23",
+    "document_sha256": "2b63846d19551e1e1d86b208d387b71c5a64b512dcadf3a663f3b2b150fe1580",
+    "pdf_path": "policies/orencia_humana.pdf",
+    "payer_name": "Humana",
+    "line_of_business": "medicare",
+    "predecessor_policy_number": null,
+    "related_policies": []
+  },
+  "service": {
+    "drug_name": "Orencia",
+    "generic_name": "abatacept",
+    "manufacturer": "Bristol Myers Squibb",
+    "route": "iv_infusion",
+    "hcpcs_codes": [],
+    "admin_cpt_codes": []
+  },
+  "payer": {
+    "payer_id": "humana",
+    "payer_name": "Humana",
+    "line_of_business": "medicare",
+    "provider_template_version": "1.0"
+  },
+  "benefit_routing": {
+    "benefit_type": "both",
+    "applies_to_this_request": true,
+    "routing_notes": "Orencia IV (with maltose) is administered under the medical (Part B) benefit; step-therapy prior-drug requirements are annotated per criterion as applying to medical benefits only or pharmacy benefits only depending on the indication.",
+    "site_of_care_policy_link": null,
+    "medicare_advantage_precedence": null
+  },
+  "indications": [
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Rheumatoid Arthritis (RA)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active rheumatoid arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be at least 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_ra",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.step_therapy_part_b",
+                "criterion_type": "step_therapy",
+                "description": "Prior therapy, contraindication, or intolerance with one of the following: Remicade, Inflectra, Infliximab OR Simponi Aria. Prior therapy with Simponi Aria applies to medical benefits only. For Medicare Part B requests, the step therapy requirement does not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": true,
+                  "required_count": 1,
+                  "drug_options": ["Remicade", "Inflectra", "Infliximab", "Simponi Aria"],
+                  "simponi_aria_scope": "medical_benefits_only",
+                  "part_b_continuation_waiver_days": 365
+                },
+                "chart_fact_key": "prior_tnf_trial_ra",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_ra",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Rheumatoid Arthritis (RA)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active rheumatoid arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_ra",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "ra_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Rheumatoid Arthritis (RA)", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Psoriatic Arthritis (PSA)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member has a diagnosis of active psoriatic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member is at least 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_psa",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ALL",
+                "label": "Prior TNF-inhibitor AND preferred ustekinumab step therapy",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.step_therapy_tnf",
+                    "criterion_type": "step_therapy",
+                    "description": "Prior therapy, contraindication, or intolerance with: Remicade, Inflectra, Infliximab OR Simponi Aria. Prior therapy with Simponi Aria applies to medical benefits only. For Medicare Part B requests, this requirement does not apply if the request is continuation of prior therapy within the past 365 days.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 1,
+                      "drug_options": ["Remicade", "Inflectra", "Infliximab", "Simponi Aria"],
+                      "simponi_aria_scope": "medical_benefits_only",
+                      "part_b_continuation_waiver_days": 365
+                    },
+                    "chart_fact_key": "prior_tnf_trial_psa",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.step_therapy_ustekinumab",
+                    "criterion_type": "step_therapy",
+                    "description": "Prior therapy, contraindication, or intolerance with a preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek).",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 1,
+                      "drug_options": ["Stelara", "Otulfi", "Yesintek"]
+                    },
+                    "chart_fact_key": "prior_ustekinumab_trial_psa",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_psa",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Psoriatic Arthritis (PSA)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member has a diagnosis of active psoriatic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_psa",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "psa_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis (PSA)", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Polyarticular Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Juvenile Idiopathic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be 6 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 6},
+                "chart_fact_key": "age_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.step_therapy_part_d",
+                "criterion_type": "step_therapy",
+                "description": "Prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product [i.e. Humira (adalimumab), adalimumab-adbm, adalimumab-adaz], Enbrel, Rinvoq. Prior therapy applies to pharmacy (Part D) benefits only.",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": true,
+                  "required_count": 2,
+                  "drug_options": ["preferred adalimumab product (Humira/adalimumab-adbm/adalimumab-adaz)", "Enbrel", "Rinvoq"],
+                  "applies_to_benefit": "part_d"
+                },
+                "chart_fact_key": "prior_biologic_trial_pjia",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_pjia",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Juvenile Idiopathic Arthritis", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Juvenile Idiopathic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_pjia",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Juvenile Idiopathic Arthritis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "chronic_gvhd",
+      "indication_name": "Chronic Graft-Versus-Host Disease",
+      "coverage_status": "not_addressed",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": []
+    },
+    {
+      "indication_id": "agvhd_prophylaxis",
+      "indication_name": "Acute Graft-Versus-Host Disease Prophylaxis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Prophylaxis of Graft vs. Host Disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.indication_use",
+                "criterion_type": "diagnosis",
+                "description": "Using Orencia for prophylaxis of acute graft versus host disease.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "prophylaxis"},
+                "chart_fact_key": "agvhd_prophylaxis_use",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Prophylaxis of Graft vs. Host Disease", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.hsct_procedure",
+                "criterion_type": "procedure_requirement",
+                "description": "Is undergoing hematopoietic stem cell transplantation from a matched or 1 allele-mismatched unrelated donor.",
+                "criticality": "critical",
+                "parameters": {"procedure": "hematopoietic_stem_cell_transplantation", "donor_type": ["matched unrelated donor", "1 allele-mismatched unrelated donor"]},
+                "chart_fact_key": "hsct_matched_or_1allele_mismatch_unrelated_donor",
+                "fhir_resource_hint": "Procedure",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Prophylaxis of Graft vs. Host Disease", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.required_concomitant_therapy",
+                "criterion_type": "required_concomitant_therapy",
+                "description": "Is using Orencia in combination with a calcineurin inhibitor (e.g. cyclosporine, tacrolimus) and methotrexate.",
+                "criticality": "critical",
+                "parameters": {"required_drugs": ["calcineurin inhibitor (cyclosporine or tacrolimus)", "methotrexate"]},
+                "chart_fact_key": "concomitant_calcineurin_inhibitor_and_mtx",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Prophylaxis of Graft vs. Host Disease", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_agvhd",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Prophylaxis of Graft vs. Host Disease", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Prophylaxis of Graft vs. Host Disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.required_concomitant_therapy",
+                "criterion_type": "required_concomitant_therapy",
+                "description": "Is using Orencia in combination with a calcineurin inhibitor (e.g. cyclosporine, tacrolimus) and methotrexate.",
+                "criticality": "critical",
+                "parameters": {"required_drugs": ["calcineurin inhibitor (cyclosporine or tacrolimus)", "methotrexate"]},
+                "chart_fact_key": "concomitant_calcineurin_inhibitor_and_mtx",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Prophylaxis of Graft vs. Host Disease", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "agvhd_prophylaxis.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_agvhd",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Prophylaxis of Graft vs. Host Disease", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "checkpoint_toxicity",
+      "indication_name": "Immune Checkpoint Inhibitor-Related Toxicities",
+      "coverage_status": "not_addressed",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": []
+    }
+  ],
+  "exclusions": [],
+  "review": {
+    "reviewer": null,
+    "review_date": null,
+    "confidence": null,
+    "notes": "Auto-extracted (manually reconstructed, mirroring the extract_humana.py extraction logic) from Orencia__abatacept__Intravenous__1_.pdf. Source document does not address 'chronic_gvhd' or 'checkpoint_toxicity' indications from the drug's master indication list (core.INDICATIONS['orencia']) — those two entries are included with empty criteria_sets/coverage_status 'not_addressed' rather than fabricated, per pipeline's 'never invent criteria' rule. No Applicable Codes / ICD-10 section present in source, so hcpcs_codes and icd10_codes are empty by design. Requires human review before activation.",
+    "golden_cases_added": 0
+  }
+}

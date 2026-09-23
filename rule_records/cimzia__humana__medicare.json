@@ -1,0 +1,986 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "cimzia__humana__medicare",
+  "status": "draft",
+  "policy_source": {
+    "policy_number": "UNKNOWN",
+    "effective_date": "2026-01-01",
+    "retrieved_date": "2026-09-23",
+    "document_sha256": "e8d2873eb08335f2f7acb6d8c1004a9caa9903a476bb33a9bb8250ea7c69f8e9",
+    "pdf_path": "policies/cimzia_humana.pdf",
+    "payer_name": "Humana",
+    "line_of_business": "medicare",
+    "predecessor_policy_number": null,
+    "related_policies": []
+  },
+  "service": {
+    "drug_name": "Cimzia",
+    "generic_name": "certolizumab pegol",
+    "manufacturer": "UCB",
+    "route": "subcutaneous_injection",
+    "hcpcs_codes": [],
+    "admin_cpt_codes": []
+  },
+  "payer": {
+    "payer_id": "humana",
+    "payer_name": "Humana",
+    "line_of_business": "medicare",
+    "provider_template_version": "1.0"
+  },
+  "benefit_routing": {
+    "benefit_type": "both",
+    "applies_to_this_request": true,
+    "routing_notes": "Cimzia is a self-administered subcutaneous injection (Starter Kit, syringe kit, or powder for reconstitution), typically billed under Part D pharmacy. Step-therapy requirements are documented separately for Part D and Part B requests per indication.",
+    "site_of_care_policy_link": null,
+    "medicare_advantage_precedence": null
+  },
+  "indications": [
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active rheumatoid arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_ra",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy pathway (Part D or Part B)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.step_therapy_part_d",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part D requests: prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product [i.e. Humira (adalimumab), adalimumab-adbm, adalimumab-adaz], Enbrel, Rinvoq.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 2,
+                      "drug_options": ["preferred adalimumab product (Humira/adalimumab-adbm/adalimumab-adaz)", "Enbrel", "Rinvoq"],
+                      "applies_to_benefit": "part_d"
+                    },
+                    "chart_fact_key": "prior_biologic_trial_ra_part_d",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "ra.step_therapy_part_b",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part B requests: prior therapy, contraindication, or intolerance with Remicade, Inflectra, Infliximab, or Simponi Aria. Prior therapy with Simponi Aria applies to medical benefits only.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 1,
+                      "drug_options": ["Remicade", "Inflectra", "Infliximab", "Simponi Aria"],
+                      "simponi_aria_scope": "medical_benefits_only",
+                      "applies_to_benefit": "part_b",
+                      "part_b_continuation_waiver_days": 365
+                    },
+                    "chart_fact_key": "prior_biologic_trial_ra_part_b",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active rheumatoid arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "ra_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active psoriatic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_psa",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy pathway (Part D or Part B)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.step_therapy_part_d",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part D requests: prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product, Enbrel, Cosentyx, preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek), Skyrizi, Rinvoq, Tremfya.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 2,
+                      "drug_options": ["preferred adalimumab product", "Enbrel", "Cosentyx", "preferred ustekinumab product (Stelara/Otulfi/Yesintek)", "Skyrizi", "Rinvoq", "Tremfya"],
+                      "applies_to_benefit": "part_d"
+                    },
+                    "chart_fact_key": "prior_biologic_trial_psa_part_d",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+                  },
+                  {
+                    "node_type": "group",
+                    "operator": "ALL",
+                    "label": "For Part B requests",
+                    "children": [
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "psa.step_therapy_part_b_tnf",
+                        "criterion_type": "step_therapy",
+                        "description": "Prior therapy, contraindication, or intolerance with Remicade, Inflectra, Infliximab OR Simponi Aria. Prior therapy with Simponi Aria applies to medical benefits only.",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Remicade", "Inflectra", "Infliximab", "Simponi Aria"],
+                          "simponi_aria_scope": "medical_benefits_only",
+                          "applies_to_benefit": "part_b",
+                          "part_b_continuation_waiver_days": 365
+                        },
+                        "chart_fact_key": "prior_tnf_trial_psa_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+                      },
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "psa.step_therapy_part_b_ustekinumab",
+                        "criterion_type": "step_therapy",
+                        "description": "Prior therapy, contraindication, or intolerance with a preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek).",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Stelara", "Otulfi", "Yesintek"],
+                          "applies_to_benefit": "part_b"
+                        },
+                        "chart_fact_key": "prior_ustekinumab_trial_psa_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active psoriatic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "psa_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Psoriatic Arthritis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "as_nraxspa",
+      "indication_name": "Ankylosing Spondylitis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ANY",
+            "label": "Qualifying diagnosis pathway: Ankylosing Spondylitis OR Non-Radiographic Axial Spondyloarthritis",
+            "children": [
+              {
+                "node_type": "group",
+                "operator": "ALL",
+                "label": "Ankylosing Spondylitis pathway",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as.diagnosis",
+                    "criterion_type": "diagnosis",
+                    "description": "The member has a diagnosis of ankylosing spondylitis.",
+                    "criticality": "critical",
+                    "parameters": {"severity_qualifier": null},
+                    "chart_fact_key": "diagnosis_as",
+                    "fhir_resource_hint": "Condition",
+                    "documentation_examples": [],
+                    "source": {"page": 3, "section": "Ankylosing Spondylitis", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as.age_requirement",
+                    "criterion_type": "age_requirement",
+                    "description": "The member must be 18 years of age or older.",
+                    "criticality": "critical",
+                    "parameters": {"min_age_years": 18},
+                    "chart_fact_key": "age_as",
+                    "fhir_resource_hint": "Condition",
+                    "documentation_examples": [],
+                    "source": {"page": 3, "section": "Ankylosing Spondylitis", "policy": null}
+                  },
+                  {
+                    "node_type": "group",
+                    "operator": "ANY",
+                    "label": "Step therapy pathway (Part D or Part B)",
+                    "children": [
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "as.step_therapy_part_d",
+                        "criterion_type": "step_therapy",
+                        "description": "For Part D requests: prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product, Enbrel, Cosentyx, Rinvoq.",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 2,
+                          "drug_options": ["preferred adalimumab product", "Enbrel", "Cosentyx", "Rinvoq"],
+                          "applies_to_benefit": "part_d"
+                        },
+                        "chart_fact_key": "prior_biologic_trial_as_part_d",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 3, "section": "Ankylosing Spondylitis", "policy": null}
+                      },
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "as.step_therapy_part_b",
+                        "criterion_type": "step_therapy",
+                        "description": "For Part B requests: prior therapy, contraindication, or intolerance with Remicade, Inflectra, Infliximab OR Simponi Aria. Prior therapy with Simponi Aria applies to medical benefits only.",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Remicade", "Inflectra", "Infliximab", "Simponi Aria"],
+                          "simponi_aria_scope": "medical_benefits_only",
+                          "applies_to_benefit": "part_b",
+                          "part_b_continuation_waiver_days": 365
+                        },
+                        "chart_fact_key": "prior_biologic_trial_as_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 3, "section": "Ankylosing Spondylitis", "policy": null}
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "node_type": "group",
+                "operator": "ALL",
+                "label": "Non-Radiographic Axial Spondyloarthritis pathway",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "nraxspa.diagnosis",
+                    "criterion_type": "diagnosis",
+                    "description": "The member has a diagnosis of non-radiographic axial spondyloarthritis with signs of inflammation.",
+                    "criticality": "critical",
+                    "parameters": {"severity_qualifier": "with signs of inflammation"},
+                    "chart_fact_key": "diagnosis_nraxspa_inflammation",
+                    "fhir_resource_hint": "Condition",
+                    "documentation_examples": [],
+                    "source": {"page": 3, "section": "Non-Radiographic Axial Spondyloarthritis", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "nraxspa.age_requirement",
+                    "criterion_type": "age_requirement",
+                    "description": "The member must be 18 years of age or older.",
+                    "criticality": "critical",
+                    "parameters": {"min_age_years": 18},
+                    "chart_fact_key": "age_nraxspa",
+                    "fhir_resource_hint": "Condition",
+                    "documentation_examples": [],
+                    "source": {"page": 4, "section": "Non-Radiographic Axial Spondyloarthritis", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "nraxspa.step_therapy_part_d",
+                    "criterion_type": "step_therapy",
+                    "description": "Prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product, Cosentyx, Rinvoq. Prior therapy applies to pharmacy (Part D) benefits only.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 2,
+                      "drug_options": ["preferred adalimumab product", "Cosentyx", "Rinvoq"],
+                      "applies_to_benefit": "part_d"
+                    },
+                    "chart_fact_key": "prior_biologic_trial_nraxspa_part_d",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 4, "section": "Non-Radiographic Axial Spondyloarthritis", "policy": null}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ANY",
+            "label": "Renewal — qualifying diagnosis pathway",
+            "children": [
+              {
+                "node_type": "group",
+                "operator": "ALL",
+                "label": "Ankylosing Spondylitis pathway (renewal)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as.diagnosis",
+                    "criterion_type": "diagnosis",
+                    "description": "The member has a diagnosis of ankylosing spondylitis.",
+                    "criticality": "critical",
+                    "parameters": {"severity_qualifier": null},
+                    "chart_fact_key": "diagnosis_as",
+                    "fhir_resource_hint": "Condition",
+                    "documentation_examples": [],
+                    "source": {"page": 3, "section": "Ankylosing Spondylitis", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "as.continuation.step_therapy_waiver_365d",
+                    "criterion_type": "currently_on_drug",
+                    "description": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                    "criticality": "supporting",
+                    "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                    "chart_fact_key": "as_continuation_365d_waiver",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 3, "section": "Ankylosing Spondylitis", "policy": null}
+                  }
+                ]
+              },
+              {
+                "node_type": "group",
+                "operator": "ALL",
+                "label": "Non-Radiographic Axial Spondyloarthritis pathway (renewal)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "nraxspa.diagnosis",
+                    "criterion_type": "diagnosis",
+                    "description": "The member has a diagnosis of non-radiographic axial spondyloarthritis with signs of inflammation.",
+                    "criticality": "critical",
+                    "parameters": {"severity_qualifier": "with signs of inflammation"},
+                    "chart_fact_key": "diagnosis_nraxspa_inflammation",
+                    "fhir_resource_hint": "Condition",
+                    "documentation_examples": [],
+                    "source": {"page": 3, "section": "Non-Radiographic Axial Spondyloarthritis", "policy": null}
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "cd",
+      "indication_name": "Crohn Disease",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Crohn's Disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member has a diagnosis of moderately to severely active Crohn's disease.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_cd_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_cd",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy pathway (Part D or Part B)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cd.step_therapy_part_d",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part D requests: prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product, preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek), Skyrizi, Rinvoq, Tremfya.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 2,
+                      "drug_options": ["preferred adalimumab product", "preferred ustekinumab product (Stelara/Otulfi/Yesintek)", "Skyrizi", "Rinvoq", "Tremfya"],
+                      "applies_to_benefit": "part_d"
+                    },
+                    "chart_fact_key": "prior_biologic_trial_cd_part_d",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+                  },
+                  {
+                    "node_type": "group",
+                    "operator": "ALL",
+                    "label": "For Part B requests",
+                    "children": [
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "cd.step_therapy_part_b_tnf",
+                        "criterion_type": "step_therapy",
+                        "description": "Prior therapy, contraindication, or intolerance with Remicade, Inflectra, OR Infliximab.",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Remicade", "Inflectra", "Infliximab"],
+                          "applies_to_benefit": "part_b",
+                          "part_b_continuation_waiver_days": 365
+                        },
+                        "chart_fact_key": "prior_tnf_trial_cd_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+                      },
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "cd.step_therapy_part_b_ustekinumab_or_tremfya",
+                        "criterion_type": "step_therapy",
+                        "description": "Prior therapy, contraindication, or intolerance with a preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek) or Tremfya.",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Stelara", "Otulfi", "Yesintek", "Tremfya"],
+                          "applies_to_benefit": "part_b"
+                        },
+                        "chart_fact_key": "prior_ustekinumab_or_tremfya_trial_cd_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Crohn's Disease",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member has a diagnosis of moderately to severely active Crohn's disease.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_cd_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cd.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "cd_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Crohn's Disease", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "plaque_ps",
+      "indication_name": "Plaque Psoriasis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Plaque Psoriasis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderate to severe plaque psoriasis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderate to severe"},
+                "chart_fact_key": "diagnosis_ps_moderate_severe",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_plaque_ps",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy pathway (Part D or Part B)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "plaque_ps.step_therapy_part_d",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part D requests: prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product, Enbrel, Cosentyx, preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek), Skyrizi, Tremfya.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 2,
+                      "drug_options": ["preferred adalimumab product", "Enbrel", "Cosentyx", "preferred ustekinumab product (Stelara/Otulfi/Yesintek)", "Skyrizi", "Tremfya"],
+                      "applies_to_benefit": "part_d"
+                    },
+                    "chart_fact_key": "prior_biologic_trial_plaque_ps_part_d",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+                  },
+                  {
+                    "node_type": "group",
+                    "operator": "ALL",
+                    "label": "For Part B requests",
+                    "children": [
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "plaque_ps.step_therapy_part_b_tnf",
+                        "criterion_type": "step_therapy",
+                        "description": "Prior therapy, contraindication, or intolerance with Remicade, Inflectra, or Infliximab.",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Remicade", "Inflectra", "Infliximab"],
+                          "applies_to_benefit": "part_b",
+                          "part_b_continuation_waiver_days": 365
+                        },
+                        "chart_fact_key": "prior_tnf_trial_plaque_ps_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+                      },
+                      {
+                        "node_type": "criterion",
+                        "criterion_id": "plaque_ps.step_therapy_part_b_ustekinumab",
+                        "criterion_type": "step_therapy",
+                        "description": "Prior therapy, contraindication, or intolerance with a preferred ustekinumab product (i.e., Stelara, Otulfi, Yesintek).",
+                        "criticality": "critical",
+                        "parameters": {
+                          "min_trial_days": null,
+                          "at_max_dose_required": false,
+                          "contraindication_excuses_trial": true,
+                          "required_count": 1,
+                          "drug_options": ["Stelara", "Otulfi", "Yesintek"],
+                          "applies_to_benefit": "part_b"
+                        },
+                        "chart_fact_key": "prior_ustekinumab_trial_plaque_ps_part_b",
+                        "fhir_resource_hint": "MedicationStatement",
+                        "documentation_examples": [],
+                        "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Plaque Psoriasis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderate to severe plaque psoriasis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderate to severe"},
+                "chart_fact_key": "diagnosis_ps_moderate_severe",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "plaque_ps.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "plaque_ps_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 4, "section": "Plaque Psoriasis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Polyarticular Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Polyarticular Juvenile Idiopathic Arthritis (PJIA)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 5, "section": "Polyarticular Juvenile Idiopathic Arthritis (PJIA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be 2 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 2},
+                "chart_fact_key": "age_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 5, "section": "Polyarticular Juvenile Idiopathic Arthritis (PJIA)", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Step therapy pathway (Part D or Part B)",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "pjia.step_therapy_part_d",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part D requests: prior therapy, contraindication, or intolerance with two of the following: preferred adalimumab product, Enbrel, Rinvoq.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 2,
+                      "drug_options": ["preferred adalimumab product", "Enbrel", "Rinvoq"],
+                      "applies_to_benefit": "part_d"
+                    },
+                    "chart_fact_key": "prior_biologic_trial_pjia_part_d",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 5, "section": "Polyarticular Juvenile Idiopathic Arthritis (PJIA)", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "pjia.step_therapy_part_b",
+                    "criterion_type": "step_therapy",
+                    "description": "For Part B requests: prior therapy, contraindication, or intolerance with Simponi Aria. Prior therapy with Simponi Aria applies to medical benefits only.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 1,
+                      "drug_options": ["Simponi Aria"],
+                      "simponi_aria_scope": "medical_benefits_only",
+                      "applies_to_benefit": "part_b",
+                      "part_b_continuation_waiver_days": 365
+                    },
+                    "chart_fact_key": "prior_biologic_trial_pjia_part_b",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 5, "section": "Polyarticular Juvenile Idiopathic Arthritis (PJIA)", "policy": null}
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Polyarticular Juvenile Idiopathic Arthritis (PJIA)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active polyarticular juvenile idiopathic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 5, "section": "Polyarticular Juvenile Idiopathic Arthritis (PJIA)", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.continuation.step_therapy_waiver_365d",
+                "criterion_type": "currently_on_drug",
+                "description": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days.",
+                "criticality": "supporting",
+                "parameters": {"waiver_window_days": 365, "applies_to_benefit": "part_b"},
+                "chart_fact_key": "pjia_continuation_365d_waiver",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 5, "section": "Polyarticular Juvenile Idiopathic Arthritis (PJIA)", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "review": {
+    "reviewer": null,
+    "review_date": null,
+    "confidence": null,
+    "notes": "Auto-extracted (manually reconstructed, mirroring the extract_humana.py extraction logic) from Cimzia__certolizumab_pegol_.pdf. 'as_nraxspa' combines two Humana source sections (Ankylosing Spondylitis and Non-Radiographic Axial Spondyloarthritis) which have DIFFERENT diagnosis text and different step-therapy drug lists — modeled as an ANY-of-two-diagnosis-pathways group rather than merged into one criterion, unlike the UHC record for this drug which treats them as a single combined tier. No Exclusion section exists in this source PDF (unlike Simponi Aria / Orencia Humana policies), so no combination_exclusion criteria are present. No Applicable Codes / ICD-10 section present in source, so hcpcs_codes and icd10_codes are empty by design. Requires human review before activation.",
+    "golden_cases_added": 0
+  }
+}

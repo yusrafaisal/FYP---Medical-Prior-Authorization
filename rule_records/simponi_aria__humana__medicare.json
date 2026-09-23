@@ -1,0 +1,572 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "simponi_aria__humana__medicare",
+  "status": "draft",
+  "policy_source": {
+    "policy_number": "UNKNOWN",
+    "effective_date": "2019-01-01",
+    "retrieved_date": "2026-09-23",
+    "document_sha256": "060f117867abade659c69501e3da0fbdcc40a96cfde6fcb7c1e9b16bbdd5725a",
+    "pdf_path": "policies/simponi_aria_humana.pdf",
+    "payer_name": "Humana",
+    "line_of_business": "medicare",
+    "predecessor_policy_number": null,
+    "related_policies": []
+  },
+  "service": {
+    "drug_name": "Simponi Aria",
+    "generic_name": "golimumab",
+    "manufacturer": "Janssen",
+    "route": "iv_infusion",
+    "hcpcs_codes": [],
+    "admin_cpt_codes": []
+  },
+  "payer": {
+    "payer_id": "humana",
+    "payer_name": "Humana",
+    "line_of_business": "medicare",
+    "provider_template_version": "1.0"
+  },
+  "benefit_routing": {
+    "benefit_type": "medical",
+    "applies_to_this_request": true,
+    "routing_notes": "Simponi ARIA is an IV solution administered under the medical (Part B) benefit; policy also applies to Humana Medicaid - South Carolina. No Part D pharmacy pathway exists for this product.",
+    "site_of_care_policy_link": null,
+    "medicare_advantage_precedence": null
+  },
+  "indications": [
+    {
+      "indication_id": "as",
+      "indication_name": "Ankylosing Spondylitis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Ankylosing Spondylitis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active ankylosing spondylitis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_as_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Ankylosing Spondylitis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be at least 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_as",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Ankylosing Spondylitis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.step_therapy_nsaid",
+                "criterion_type": "step_therapy",
+                "description": "Prior therapy, contraindication, or intolerance with at least one NSAID (e.g. ibuprofen, meloxicam, naproxen).",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": true,
+                  "required_count": 1,
+                  "drug_options": ["ibuprofen", "meloxicam", "naproxen"]
+                },
+                "chart_fact_key": "prior_nsaid_trial",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Ankylosing Spondylitis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_as",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Ankylosing Spondylitis", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Ankylosing Spondylitis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active ankylosing spondylitis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_as_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Ankylosing Spondylitis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "as.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_as",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Ankylosing Spondylitis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active psoriatic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be at least 2 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 2},
+                "chart_fact_key": "age_psa",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "group",
+                "operator": "ALL",
+                "label": "NSAID and DMARD step therapy",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.step_therapy_nsaid",
+                    "criterion_type": "step_therapy",
+                    "description": "Prior therapy, contraindication, or intolerance with an NSAID (e.g. meloxicam, ibuprofen, naproxen).",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 1,
+                      "drug_options": ["meloxicam", "ibuprofen", "naproxen"]
+                    },
+                    "chart_fact_key": "prior_nsaid_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "psa.step_therapy_dmard",
+                    "criterion_type": "step_therapy",
+                    "description": "Prior therapy with or intolerance to a single DMARD (e.g. sulfasalazine, methotrexate, leflunomide), or contraindication to all DMARDs.",
+                    "criticality": "critical",
+                    "parameters": {
+                      "min_trial_days": null,
+                      "at_max_dose_required": false,
+                      "contraindication_excuses_trial": true,
+                      "required_count": 1,
+                      "drug_options": ["sulfasalazine", "methotrexate", "leflunomide"]
+                    },
+                    "chart_fact_key": "prior_dmard_trial",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "documentation_examples": [],
+                    "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_psa",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Psoriatic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active psoriatic arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_psa_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "psa.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_psa",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 1, "section": "Psoriatic Arthritis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active rheumatoid arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member must be at least 18 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 18},
+                "chart_fact_key": "age_ra",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.step_therapy_dmard",
+                "criterion_type": "step_therapy",
+                "description": "Prior therapy with or intolerance to a single DMARD (e.g. methotrexate, sulfasalazine, hydroxychloroquine, leflunomide), or contraindication to all DMARDs.",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": true,
+                  "required_count": 1,
+                  "drug_options": ["methotrexate", "sulfasalazine", "hydroxychloroquine", "leflunomide"]
+                },
+                "chart_fact_key": "prior_dmard_trial",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.required_concomitant_methotrexate",
+                "criterion_type": "required_concomitant_therapy",
+                "description": "The member must be on concomitant treatment with methotrexate during golimumab therapy, unless contraindicated or intolerant to methotrexate.",
+                "criticality": "critical",
+                "parameters": {"required_drug": "methotrexate", "waiver_if_contraindicated_or_intolerant": true},
+                "chart_fact_key": "concomitant_methotrexate_required",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_ra",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Rheumatoid Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of moderately to severely active rheumatoid arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "moderately to severely active"},
+                "chart_fact_key": "diagnosis_ra_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.required_concomitant_methotrexate",
+                "criterion_type": "required_concomitant_therapy",
+                "description": "The member must be on concomitant treatment with methotrexate during golimumab therapy, unless contraindicated or intolerant to methotrexate.",
+                "criticality": "critical",
+                "parameters": {"required_drug": "methotrexate", "waiver_if_contraindicated_or_intolerant": true},
+                "chart_fact_key": "concomitant_methotrexate_required",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "ra.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_ra",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Rheumatoid Arthritis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Polyarticular Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": null,
+      "criteria_sets": [
+        {
+          "tier": "proven",
+          "therapy_phase": "initial",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Criteria for Polyarticular Juvenile Idiopathic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active polyarticular Juvenile Idiopathic Arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Polyarticular Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.age_requirement",
+                "criterion_type": "age_requirement",
+                "description": "The member is 2 years of age or older.",
+                "criticality": "critical",
+                "parameters": {"min_age_years": 2},
+                "chart_fact_key": "age_pjia",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Polyarticular Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.step_therapy_dmard",
+                "criterion_type": "step_therapy",
+                "description": "Prior therapy, contraindication, or intolerance with a DMARD (e.g. methotrexate, cyclosporine, leflunomide).",
+                "criticality": "critical",
+                "parameters": {
+                  "min_trial_days": null,
+                  "at_max_dose_required": false,
+                  "contraindication_excuses_trial": true,
+                  "required_count": 1,
+                  "drug_options": ["methotrexate", "cyclosporine", "leflunomide"]
+                },
+                "chart_fact_key": "prior_dmard_trial",
+                "fhir_resource_hint": "MedicationStatement",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Polyarticular Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_pjia",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Polyarticular Juvenile Idiopathic Arthritis", "policy": null}
+              }
+            ]
+          }
+        },
+        {
+          "tier": "proven",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Renewal criteria for Polyarticular Juvenile Idiopathic Arthritis",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.diagnosis",
+                "criterion_type": "diagnosis",
+                "description": "The member must have a diagnosis of active polyarticular Juvenile Idiopathic Arthritis.",
+                "criticality": "critical",
+                "parameters": {"severity_qualifier": "active"},
+                "chart_fact_key": "diagnosis_pjia_active",
+                "fhir_resource_hint": "Condition",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Polyarticular Juvenile Idiopathic Arthritis", "policy": null}
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "pjia.combination_exclusion",
+                "criterion_type": "combination_exclusion",
+                "description": "Combination therapy with other biologics (e.g. Cosentyx, Enbrel, adalimumab product, Kevzara, Remicade) is an exclusion; approval may not be appropriate if present.",
+                "criticality": "critical",
+                "parameters": {
+                  "excluded_drugs": ["Cosentyx", "Enbrel", "adalimumab product", "Kevzara", "Remicade"],
+                  "same_indication_scope": true
+                },
+                "chart_fact_key": "concurrent_biologics_pjia",
+                "fhir_resource_hint": "MedicationRequest",
+                "documentation_examples": [],
+                "source": {"page": 2, "section": "Polyarticular Juvenile Idiopathic Arthritis", "policy": null}
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "review": {
+    "reviewer": null,
+    "review_date": null,
+    "confidence": null,
+    "notes": "Auto-extracted (manually reconstructed, mirroring the extract_humana.py extraction logic) from Simponi_ARIA__golimumab_.pdf. No Applicable Codes / ICD-10 section present in source (Humana policies link to humana.com/PAL instead), so hcpcs_codes and icd10_codes are empty by design. Requires human review before activation.",
+    "golden_cases_added": 0
+  }
+}

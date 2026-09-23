@@ -1,0 +1,48 @@
+{
+  "payer_id": "humana",
+  "payer_name": "Humana",
+  "version": "1.0",
+  "section_map": {
+    "keep": {
+      "Rheumatoid Arthritis": ["Rheumatoid Arthritis"],
+      "Psoriatic Arthritis": ["Psoriatic Arthritis"],
+      "Ankylosing Spondylitis": ["Ankylosing Spondylitis"],
+      "Non-Radiographic Axial Spondyloarthritis": ["Non‐Radiographic Axial Spondyloarthritis", "Non-Radiographic Axial Spondyloarthritis"],
+      "Crohn's Disease": ["Crohn's Disease", "Crohn\u2019s Disease"],
+      "Plaque Psoriasis": ["Plaque Psoriasis"],
+      "Polyarticular Juvenile Idiopathic Arthritis (PJIA)": ["Polyarticular Juvenile Idiopathic Arthritis (PJIA)"],
+      "Chronic Graft-Versus-Host Disease": ["Chronic Graft-Versus-Host Disease", "Chronic GVHD"],
+      "Acute Graft-Versus-Host Disease Prophylaxis": ["Acute Graft-Versus-Host Disease Prophylaxis", "aGVHD Prophylaxis"],
+      "Immune Checkpoint Inhibitor-Related Toxicities": ["Immune Checkpoint Inhibitor-Related Toxicities", "Checkpoint Inhibitor Toxicities"],
+      "Background": ["Background"],
+      "Provider Claim Codes": ["Provider Claim Codes"]
+    },
+    "skip": [
+      "Products Affected",
+      "Listed Indications",
+      "Medical Terms",
+      "References",
+      "Disclaimer"
+    ]
+  },
+  "tier_detection": {
+    "pattern": ["single_tier"],
+    "style": "single_tier"
+  },
+  "indication_detection": {
+    "style": "top_level_section_per_indication",
+    "criteria_numbering": "Criteria #N rows in a 'Does the member meet all of the following criteria?' table",
+    "phase_keywords": {
+      "initial": ["Initial"],
+      "continuation": ["Renewal"]
+    },
+    "pathway_split": {
+      "style": "part_b_vs_part_d",
+      "keywords": {
+        "part_d": ["For Part D requests"],
+        "part_b": ["For Part B requests"]
+      },
+      "continuation_step_therapy_waiver": "For Medicare Part B requests, the step therapy requirements do not apply if the request is continuation of prior therapy within the past 365 days."
+    }
+  }
+}

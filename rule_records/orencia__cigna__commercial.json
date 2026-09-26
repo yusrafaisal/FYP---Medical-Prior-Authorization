@@ -1,0 +1,1436 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "cigna_orencia_iv_IP0664",
+  "status": "draft",
+  "policy_source": {
+    "payer_policy_number": "IP0664",
+    "effective_date": "2026-05-01",
+    "document_title": "Orencia (intravenous) Prior Authorization Policy",
+    "document_sha256": "6f94efde1c2f60e0eabf6bac30577017592cfdb6137d86d5fcb2f87239602d19",
+    "retrieved_date": "2026-09-26"
+  },
+  "service": {
+    "drug_name": "Orencia (intravenous)",
+    "generic_name": "abatacept",
+    "manufacturer": "Bristol-Myers Squibb",
+    "route": "iv_infusion",
+    "hcpcs_codes": [
+      {
+        "code": "J0129",
+        "description": "Injection, abatacept, 10 mg (code may be used for Medicare when drug administered under direct supervision of a physician; not for use when self-administered)"
+      }
+    ],
+    "admin_cpt_codes": [],
+    "admin_cpt_note": "Source PDF lists only the drug HCPCS code; no administration CPT code stated. Confirm IV infusion administration CPT (e.g., 96413/96415) with clinic billing."
+  },
+  "payer": {
+    "payer_name": "Cigna",
+    "payer_id": "cigna",
+    "line_of_business": "commercial",
+    "line_of_business_note": "Not explicitly stated in source PDF (document references 'employer plans' and separate Individual/Family and Legacy drug lists) -- confirm actual LOB scope with Octdaily before use."
+  },
+  "benefit_routing": {
+    "benefit_type": "medical",
+    "applies_to_this_request": true,
+    "routing_notes": "Cigna 'Drug Coverage Policy' administered under the medical benefit; PA required prior to administration. Benefit-type classification inferred from document type, not explicitly stated as 'medical vs pharmacy benefit' in the source PDF -- confirm with clinic billing."
+  },
+  "indications": [
+    {
+      "indication_id": "agvhd_prophylaxis",
+      "indication_name": "Graft-Versus-Host Disease - Prevention",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "oncologist",
+        "hematologist",
+        "transplant center physician"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 2,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "GVHD Prevention",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_gvhd_prev.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 2 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 2,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 3,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_gvhd_prev.purpose",
+                "criterion_type": "attestation",
+                "description": "Orencia is being used for prevention of acute graft-versus-host disease.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "treatment_purpose",
+                "fhir_resource_hint": "Procedure",
+                "source": {
+                  "page": 3,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_gvhd_prev.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: oncologist, hematologist, transplant center physician.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "oncologist",
+                    "hematologist",
+                    "transplant center physician"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 3,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Weight-based dosing",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_gvhd_prev.dose_a",
+                    "criterion_type": "dosing_per_fda_label",
+                    "description": "Age >=6: up to 10 mg/kg, max 1,000 mg per dose.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "requested_dose_and_frequency",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "source": {
+                      "page": 3,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_gvhd_prev.dose_b",
+                    "criterion_type": "dosing_per_fda_label",
+                    "description": "Age 2 to <6: up to 15 mg/kg.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "requested_dose_and_frequency",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "source": {
+                      "page": 3,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_gvhd_prev.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "JIA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gt 2 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gt",
+                  "value": 2,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 3,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Prior/concurrent therapy, contraindication, or aggressive disease",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_pjia.init.prior",
+                    "criterion_type": "step_therapy",
+                    "description": "Tried one other agent (methotrexate, sulfasalazine, leflunomide, NSAID; a biologic other than requested also counts; biosimilar of requested does not).",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_prior_agents": [
+                        "methotrexate",
+                        "sulfasalazine",
+                        "leflunomide",
+                        "NSAID",
+                        "other biologic (not biosimilar of requested drug)"
+                      ]
+                    },
+                    "chart_fact_key": "prior_therapy_trials",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_pjia.init.concurrent",
+                    "criterion_type": "attestation",
+                    "description": "Starting therapy concurrently with methotrexate, sulfasalazine, or leflunomide.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "concurrent_dmard_start",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_pjia.init.contra",
+                    "criterion_type": "attestation",
+                    "description": "Absolute contraindication to methotrexate, sulfasalazine, or leflunomide.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "dmard_contraindication",
+                    "fhir_resource_hint": "Condition",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_pjia.init.aggressive",
+                    "criterion_type": "attestation",
+                    "description": "Patient has aggressive disease, as determined by the prescriber.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "prescriber_attestation_aggressive_disease",
+                    "fhir_resource_hint": "Condition",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based: <75kg: 10mg/kg; 75-100kg: 750mg; >100kg: 1,000mg. Given at Wks 0,2,4 then q4wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "JIA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_pjia.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: MD global, PGA, PDA, JDAS, cJDAS, JSpADA, CRP/ESR, reduced corticosteroid dose.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "MD global",
+                        "PGA",
+                        "PDA",
+                        "JDAS",
+                        "cJDAS",
+                        "JSpADA",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_pjia.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., improved motion, less joint pain/tenderness, decreased morning stiffness/fatigue, improved function).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "improved motion",
+                        "less joint pain/tenderness",
+                        "decreased morning stiffness/fatigue",
+                        "improved function"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based, same brackets as initial therapy.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_pjia.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist",
+        "dermatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "PsA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gt 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gt",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist, dermatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist",
+                    "dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based: <60kg: 500mg; 60-100kg: 750mg; >100kg: 1,000mg. Given at Wks 0,2,4 then q4wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "PsA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_psa.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: DAPSA, CPDAI, PsA DAS, Grace Index, LEI, SPARCC, Leeds Dactylitis, MDA, PsAID-12, CRP/ESR.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "DAPSA",
+                        "CPDAI",
+                        "PsA DAS",
+                        "Grace Index",
+                        "LEI",
+                        "SPARCC",
+                        "Leeds Dactylitis Instrument Score",
+                        "MDA",
+                        "PsAID-12",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_psa.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., less joint pain, morning stiffness/fatigue, improved function, decreased swelling).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "less joint pain",
+                        "morning stiffness/fatigue",
+                        "improved function",
+                        "decreased swelling"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based, same brackets as initial therapy.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_psa.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "RA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gt 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gt",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "DMARD trial or prior biologic",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_ra.init.dmard",
+                    "criterion_type": "step_therapy",
+                    "description": "Tried ONE conventional synthetic DMARD for >=3 months.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_dmards": [
+                        "methotrexate",
+                        "leflunomide",
+                        "hydroxychloroquine",
+                        "sulfasalazine"
+                      ],
+                      "min_months": 3
+                    },
+                    "chart_fact_key": "dmard_trial_months",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_ra.init.prior_bio",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "3-month trial of a biologic other than the requested drug (biosimilar does not count).",
+                    "criticality": "required",
+                    "parameters": {
+                      "min_months": 3
+                    },
+                    "chart_fact_key": "prior_biologic_trial_months",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based: <60kg: 500mg; 60-100kg: 750mg; >100kg: 1,000mg. Given at Wks 0,2,4 then q4wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "RA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_ra.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: CDAI, DAS28 (ESR/CRP), PAS-II, RAPID-3, SDAI.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "CDAI",
+                        "DAS28-ESR",
+                        "DAS28-CRP",
+                        "PAS-II",
+                        "RAPID-3",
+                        "SDAI"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "or_ra.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., decreased joint pain, morning stiffness/fatigue, improved function, decreased swelling).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "decreased joint pain",
+                        "morning stiffness/fatigue",
+                        "improved function",
+                        "decreased swelling"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based, same brackets as initial therapy.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_ra.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "chronic_gvhd",
+      "indication_name": "Chronic Graft-Versus-Host Disease - Treatment (supportive evidence, not FDA-approved)",
+      "coverage_status": "covered_supportive_evidence",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "oncologist",
+        "hematologist",
+        "transplant center physician"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Chronic GVHD Treatment Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.init.dx",
+                "criterion_type": "diagnosis",
+                "description": "Patient has chronic graft-versus-host disease.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "diagnosis_code",
+                "fhir_resource_hint": "Condition",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.init.prior_tx",
+                "criterion_type": "step_therapy",
+                "description": "Tried at least one systemic medication for GVHD (e.g., systemic corticosteroids, ruxolitinib, belumosudil, axatilimab-csfr, cyclosporine, tacrolimus, mycophenolate mofetil, ibrutinib, imatinib, hydroxychloroquine, methotrexate, pentostatin, interleukin-2, sirolimus, rituximab, etanercept).",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_prior_agents": [
+                    "systemic corticosteroids",
+                    "ruxolitinib",
+                    "belumosudil",
+                    "axatilimab-csfr",
+                    "cyclosporine",
+                    "tacrolimus",
+                    "mycophenolate mofetil",
+                    "ibrutinib",
+                    "imatinib",
+                    "hydroxychloroquine",
+                    "methotrexate",
+                    "pentostatin",
+                    "interleukin-2",
+                    "sirolimus",
+                    "rituximab",
+                    "etanercept"
+                  ]
+                },
+                "chart_fact_key": "prior_gvhd_therapy",
+                "fhir_resource_hint": "MedicationStatement",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: oncologist, hematologist, transplant center physician.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "oncologist",
+                    "hematologist",
+                    "transplant center physician"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Up to 10 mg/kg IV at Weeks 0, 2, and 4, then every 4 weeks thereafter.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ANY",
+            "label": "Chronic GVHD Treatment Continuation (already received)",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.cont.objective",
+                "criterion_type": "positive_clinical_response",
+                "description": "Beneficial clinical response by objective measure from baseline (e.g., normalization of liver function tests, RBC count, or platelet count; resolution of fever or rash).",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_measures": [
+                    "liver function tests",
+                    "RBC count",
+                    "platelet count",
+                    "fever resolution",
+                    "rash resolution"
+                  ]
+                },
+                "chart_fact_key": "objective_gvhd_response",
+                "fhir_resource_hint": "Observation",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "or_cgvhd.cont.symptom",
+                "criterion_type": "positive_clinical_response",
+                "description": "Improvement in at least one symptom from baseline (e.g., skin, oral mucosal, ocular, or GI symptoms such as nausea, vomiting, anorexia).",
+                "criticality": "required",
+                "parameters": {
+                  "examples": [
+                    "skin symptoms",
+                    "oral mucosal symptoms",
+                    "ocular symptoms",
+                    "nausea",
+                    "vomiting",
+                    "anorexia"
+                  ]
+                },
+                "chart_fact_key": "symptom_improvement_note",
+                "fhir_resource_hint": "Observation",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Orencia Intravenous (IP0664)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "indication_name": "Ankylosing Spondylitis",
+      "reason": "not_medically_necessary",
+      "note": "Open-label Phase II trial did not show a major response vs. TNFi-naive/failed comparisons.",
+      "source": {
+        "page": 6,
+        "section": "Conditions Not Covered #1"
+      }
+    },
+    {
+      "indication_name": "Crohn's Disease",
+      "reason": "not_medically_necessary",
+      "note": "Placebo-controlled trials showed Orencia IV no more effective than placebo for induction/maintenance.",
+      "source": {
+        "page": 7,
+        "section": "Conditions Not Covered #3"
+      }
+    },
+    {
+      "indication_name": "Ulcerative Colitis",
+      "reason": "not_medically_necessary",
+      "note": "Placebo-controlled trials showed Orencia IV no more effective than placebo for induction/maintenance.",
+      "source": {
+        "page": 7,
+        "section": "Conditions Not Covered #3"
+      }
+    },
+    {
+      "indication_name": "Plaque Psoriasis",
+      "reason": "not_medically_necessary",
+      "note": "No significant difference vs. placebo in pivotal PsA trial's PASI 50 response; further studies needed.",
+      "source": {
+        "page": 7,
+        "section": "Conditions Not Covered #4"
+      }
+    }
+  ],
+  "review": {
+    "reviewer": null,
+    "reviewed_date": null,
+    "notes": [
+      "Auto-drafted from Cigna coverage policy PDF text; requires human clinical + coding review before production use.",
+      "icd10_codes left empty per indication -- map via NLM Clinical Tables API before use.",
+      "admin_cpt_codes empty -- source PDF lists only the drug HCPCS J-code, not administration CPT codes.",
+      "GVHD Prevention approval duration is stated in the source as '4 doses' / 60 days, not a whole-month value -- auth_duration_months for that indication is approximated; store the literal '60 days / 4 doses' rule in downstream logic instead of relying on the month figure alone."
+    ]
+  },
+  "step_therapy_dependency": {
+    "type": "preferred_product_required",
+    "status": "NOT_YET_OBTAINED",
+    "referenced_policies": [
+      "PSM006 (Standard/Performance, Value/Advantage, Total Savings Drug Lists)",
+      "PSM010 (Individual and Family Plans)",
+      "PSM018 (Legacy Drug Lists)"
+    ],
+    "note": "This drug requires trial/use of preferred products per a separate Cigna Preferred Specialty Management (PSM) policy not contained in this PDF. Record is incomplete for step-therapy purposes until that policy is obtained."
+  }
+}

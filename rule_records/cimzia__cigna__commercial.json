@@ -1,0 +1,2489 @@
+{
+  "$schema": "benefitiq/rule_record/v1",
+  "record_id": "cigna_cimzia_IP0672",
+  "status": "draft",
+  "policy_source": {
+    "payer_policy_number": "IP0672",
+    "effective_date": "2026-05-01",
+    "document_title": "Cimzia Prior Authorization Policy",
+    "document_sha256": "416dffeb99ea73fca85da05ae48093764101661991f117e826b2b0aca98eeb6e",
+    "retrieved_date": "2026-09-26"
+  },
+  "service": {
+    "drug_name": "Cimzia",
+    "generic_name": "certolizumab pegol",
+    "manufacturer": "UCB",
+    "route": "subcutaneous_injection",
+    "hcpcs_codes": [
+      {
+        "code": "J0717",
+        "description": "Injection, certolizumab pegol, 1 mg (code may be used for Medicare when drug administered under direct supervision of a physician; not for use when self-administered)"
+      }
+    ],
+    "admin_cpt_codes": [],
+    "admin_cpt_note": "Source PDF lists only the drug HCPCS code; SC injection may be self-administered (no separate admin CPT expected in most cases) -- confirm with clinic billing if administered in-office."
+  },
+  "payer": {
+    "payer_name": "Cigna",
+    "payer_id": "cigna",
+    "line_of_business": "commercial",
+    "line_of_business_note": "Not explicitly stated in source PDF (document references 'employer plans' and separate Individual/Family and Legacy drug lists) -- confirm actual LOB scope with Octdaily before use."
+  },
+  "benefit_routing": {
+    "benefit_type": "medical",
+    "applies_to_this_request": true,
+    "routing_notes": "Cigna 'Drug Coverage Policy' administered under the medical benefit; PA required prior to administration. Benefit-type classification inferred from document type, not explicitly stated as 'medical vs pharmacy benefit' in the source PDF -- confirm with clinic billing."
+  },
+  "indications": [
+    {
+      "indication_id": "as",
+      "indication_name": "Ankylosing Spondylitis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "AS Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 3,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 3,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC at Wks 0,2,4 then EITHER 400mg q4wk OR 200mg q2wk (alt: 400mg q4wk OR 200mg q2wk for initial-or-continuation dosing).",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "AS Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_as.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: ASDAS, ASQoL, BASDAI, BASFI, BAS-G, BASMI, DFI, HAQ-S, CRP/ESR.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "ASDAS",
+                        "ASQoL",
+                        "BASDAI",
+                        "BASFI",
+                        "BAS-G",
+                        "BASMI",
+                        "DFI",
+                        "HAQ-S",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_as.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., decreased pain/stiffness, improved function).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "decreased pain/stiffness",
+                        "improved function"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q4wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_as.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "cd",
+      "indication_name": "Crohn's Disease",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "gastroenterologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "CD Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: gastroenterologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "gastroenterologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC at Wks 0,2,4 then 400mg q4wk OR 200mg q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "CD Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 4,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_cd.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: fecal lactoferrin, fecal calprotectin, CRP, MRE, CTE, endoscopy, reduced corticosteroid dose.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "fecal lactoferrin",
+                        "fecal calprotectin",
+                        "CRP",
+                        "MRE",
+                        "CTE",
+                        "endoscopic assessment"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_cd.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., decreased pain, fatigue, stool frequency, blood in stool).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "decreased pain",
+                        "fatigue",
+                        "stool frequency",
+                        "blood in stool"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 4,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q4wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_cd.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "pjia",
+      "indication_name": "Juvenile Idiopathic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "JIA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gt 2 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gt",
+                  "value": 2,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Prior/concurrent therapy, contraindication, or aggressive disease",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_jia.init.prior",
+                    "criterion_type": "step_therapy",
+                    "description": "Tried one other systemic medication (methotrexate, sulfasalazine, leflunomide, NSAID; prior biologic other than requested also counts; biosimilar of requested does not).",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_prior_agents": [
+                        "methotrexate",
+                        "sulfasalazine",
+                        "leflunomide",
+                        "NSAID",
+                        "other biologic (not biosimilar of requested drug)"
+                      ]
+                    },
+                    "chart_fact_key": "prior_therapy_trials",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_jia.init.concurrent",
+                    "criterion_type": "attestation",
+                    "description": "Starting therapy concurrently with methotrexate, sulfasalazine, or leflunomide.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "concurrent_dmard_start",
+                    "fhir_resource_hint": "MedicationRequest",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_jia.init.contra",
+                    "criterion_type": "attestation",
+                    "description": "Absolute contraindication to methotrexate, sulfasalazine, or leflunomide (e.g., pregnancy, breastfeeding, alcoholic liver disease, immunodeficiency, blood dyscrasias).",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "dmard_contraindication",
+                    "fhir_resource_hint": "Condition",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_jia.init.aggressive",
+                    "criterion_type": "attestation",
+                    "description": "Patient has aggressive disease, as determined by the prescriber.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "prescriber_attestation_aggressive_disease",
+                    "fhir_resource_hint": "Condition",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based: 10-<20kg: 100mg wk0,2,4 then 50mg q2wk. 20-<40kg: 200mg wk0,2,4 then 100mg q2wk. >=40kg: 400mg wk0,2,4 then 200mg q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "JIA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 5,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_jia.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: MD global, PGA, PDA, JDAS, cJDAS, JSpADA, CRP/ESR, reduced corticosteroid dose.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "MD global",
+                        "PGA",
+                        "PDA",
+                        "JDAS",
+                        "cJDAS",
+                        "JSpADA",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_jia.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., improved motion, less joint pain/tenderness, decreased morning stiffness/fatigue, improved function).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "improved motion",
+                        "less joint pain/tenderness",
+                        "decreased morning stiffness/fatigue",
+                        "improved function"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 5,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "Weight-based, same brackets as initial therapy.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_jia.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "nraxspa",
+      "indication_name": "Non-radiographic Axial Spondyloarthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "nr-axSpA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective signs of inflammation",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_nraxspa.init.crp",
+                    "criterion_type": "screening_or_lab",
+                    "description": "CRP elevated beyond the upper limit of normal for the reporting laboratory.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "crp_value_vs_lab_uln",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_nraxspa.init.mri",
+                    "criterion_type": "screening_or_lab",
+                    "description": "Sacroiliitis reported on MRI.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "mri_sacroiliitis_finding",
+                    "fhir_resource_hint": "DiagnosticReport",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC at Wks 0,2,4 then 400mg q4wk OR 200mg q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "nr-axSpA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_nraxspa.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: ASDAS, ASQoL, BASDAI, BASFI, BAS-G, BASMI, DFI, HAQ-S, CRP/ESR.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "ASDAS",
+                        "ASQoL",
+                        "BASDAI",
+                        "BASFI",
+                        "BAS-G",
+                        "BASMI",
+                        "DFI",
+                        "HAQ-S",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_nraxspa.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., decreased pain/stiffness, improved function).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "decreased pain/stiffness",
+                        "improved function"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q4wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_nraxspa.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "plaque_pso",
+      "indication_name": "Plaque Psoriasis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "dermatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 3,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Plaque Psoriasis Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 6,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Traditional systemic trial or MTX contraindication",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_pso.init.systemic",
+                    "criterion_type": "step_therapy",
+                    "description": "Tried at least one traditional systemic agent (methotrexate, cyclosporine, acitretin) for >=3 months, unless intolerant; a 3-month PUVA trial also counts. Exception if already had a 3-month trial of/intolerance to a biologic (other than requested), Otezla/Otezla XR, or Sotyktu.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_agents": [
+                        "methotrexate",
+                        "cyclosporine",
+                        "acitretin",
+                        "PUVA",
+                        "other biologic (not biosimilar)",
+                        "apremilast",
+                        "deucravacitinib"
+                      ],
+                      "min_months": 3
+                    },
+                    "chart_fact_key": "prior_therapy_trials",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 6,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_pso.init.contra",
+                    "criterion_type": "attestation",
+                    "description": "Per prescriber, patient has a contraindication to methotrexate.",
+                    "criticality": "required",
+                    "parameters": {},
+                    "chart_fact_key": "mtx_contraindication",
+                    "fhir_resource_hint": "Condition",
+                    "source": {
+                      "page": 7,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: dermatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q2wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Plaque Psoriasis Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 3 months (patients with <3 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 3
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.cont.skin",
+                "criterion_type": "positive_clinical_response",
+                "description": "Beneficial clinical response = improvement from baseline in body surface area affected, erythema, induration/thickness, and/or scale.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "skin_severity_measures",
+                "fhir_resource_hint": "Observation",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.cont.symptom",
+                "criterion_type": "positive_clinical_response",
+                "description": "Improvement in at least one symptom from baseline (e.g., decreased pain, itching, burning).",
+                "criticality": "required",
+                "parameters": {
+                  "examples": [
+                    "pain",
+                    "itching",
+                    "burning"
+                  ]
+                },
+                "chart_fact_key": "symptom_improvement_note",
+                "fhir_resource_hint": "Observation",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q2wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_pso.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "psa",
+      "indication_name": "Psoriatic Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist",
+        "dermatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "PsA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist, dermatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist",
+                    "dermatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC at Wks 0,2,4 then 400mg q4wk OR 200mg q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "PsA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 7,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_psa.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: DAPSA, CPDAI, PsA DAS, Grace Index, LEI, SPARCC, Leeds Dactylitis, MDA, PsAID-12, CRP/ESR.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "DAPSA",
+                        "CPDAI",
+                        "PsA DAS",
+                        "Grace Index",
+                        "LEI",
+                        "SPARCC",
+                        "Leeds Dactylitis Instrument Score",
+                        "MDA",
+                        "PsAID-12",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 8,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_psa.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., less joint pain, morning stiffness/fatigue, improved function, decreased swelling).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "less joint pain",
+                        "morning stiffness/fatigue",
+                        "improved function",
+                        "decreased swelling"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 8,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q4wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 8,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_psa.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "ra",
+      "indication_name": "Rheumatoid Arthritis",
+      "coverage_status": "covered",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "RA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 8,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "DMARD trial or prior biologic",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_ra.init.dmard",
+                    "criterion_type": "step_therapy",
+                    "description": "Tried ONE conventional synthetic DMARD for >=3 months.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_dmards": [
+                        "methotrexate",
+                        "leflunomide",
+                        "hydroxychloroquine",
+                        "sulfasalazine"
+                      ],
+                      "min_months": 3
+                    },
+                    "chart_fact_key": "dmard_trial_months",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 8,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_ra.init.prior_bio",
+                    "criterion_type": "prior_biologic_exposure",
+                    "description": "3-month trial of a biologic other than the requested drug (biosimilar does not count).",
+                    "criticality": "required",
+                    "parameters": {
+                      "min_months": 3
+                    },
+                    "chart_fact_key": "prior_biologic_trial_months",
+                    "fhir_resource_hint": "MedicationStatement",
+                    "source": {
+                      "page": 8,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 8,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC at Wks 0,2,4 then 400mg q4wk OR 200mg q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 8,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "RA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 8,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_ra.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: CDAI, DAS28 (ESR/CRP), PAS-II, RAPID-3, SDAI.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "CDAI",
+                        "DAS28-ESR",
+                        "DAS28-CRP",
+                        "PAS-II",
+                        "RAPID-3",
+                        "SDAI"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 8,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_ra.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., decreased joint pain, morning stiffness/fatigue, improved function, decreased swelling).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "decreased joint pain",
+                        "morning stiffness/fatigue",
+                        "improved function",
+                        "decreased swelling"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 8,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q4wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_ra.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "indication_id": "other_spa",
+      "indication_name": "Spondyloarthritis, Other Subtypes (undifferentiated, reactive arthritis)",
+      "coverage_status": "covered_supportive_evidence",
+      "icd10_codes": [],
+      "prescriber_specialties_accepted": [
+        "rheumatologist"
+      ],
+      "criteria_sets": [
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "initial",
+          "auth_duration_months": 6,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Other SpA Initial",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.init.age",
+                "criterion_type": "age_requirement",
+                "description": "Patient age gte 18 years.",
+                "criticality": "required",
+                "parameters": {
+                  "operator": "gte",
+                  "value": 18,
+                  "unit": "years"
+                },
+                "chart_fact_key": "patient_age",
+                "fhir_resource_hint": "Patient.birthDate",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.init.joints",
+                "criterion_type": "diagnosis",
+                "description": "Arthritis primarily in the knees, ankles, elbows, wrists, hands, and/or feet.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "affected_joints",
+                "fhir_resource_hint": "Condition",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.init.dmard",
+                "criterion_type": "step_therapy",
+                "description": "Tried at least ONE conventional synthetic DMARD (methotrexate, leflunomide, sulfasalazine).",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_dmards": [
+                    "methotrexate",
+                    "leflunomide",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "dmard_trial_months",
+                "fhir_resource_hint": "MedicationStatement",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.init.prescriber",
+                "criterion_type": "prescriber_specialty",
+                "description": "Prescribed by or in consultation with: rheumatologist.",
+                "criticality": "required",
+                "parameters": {
+                  "accepted_specialties": [
+                    "rheumatologist"
+                  ]
+                },
+                "chart_fact_key": "prescriber_specialty",
+                "fhir_resource_hint": "PractitionerRole",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.init.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC at Wks 0,2,4 then 400mg q4wk OR 200mg q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.init.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tier": "medically_necessary",
+          "therapy_phase": "continuation",
+          "auth_duration_months": 12,
+          "auth_duration_unit": "months",
+          "root": {
+            "node_type": "group",
+            "operator": "ALL",
+            "label": "Other SpA Continuation",
+            "children": [
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.cont.established",
+                "criterion_type": "currently_on_drug",
+                "description": "Patient has been established on therapy for at least 6 months (patients with <6 months, or restarting, are reviewed under Initial Therapy).",
+                "criticality": "required",
+                "parameters": {
+                  "min_months_on_therapy": 6
+                },
+                "chart_fact_key": "months_on_current_drug",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "group",
+                "operator": "ANY",
+                "label": "Objective response OR symptom improvement",
+                "children": [
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_other_spa.cont.objective",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Beneficial clinical response by at least one objective measure from baseline: ASDAS, CRP/ESR.",
+                    "criticality": "required",
+                    "parameters": {
+                      "accepted_measures": [
+                        "ASDAS",
+                        "CRP",
+                        "ESR"
+                      ]
+                    },
+                    "chart_fact_key": "objective_disease_activity_score",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 9,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  },
+                  {
+                    "node_type": "criterion",
+                    "criterion_id": "cz_other_spa.cont.symptom",
+                    "criterion_type": "positive_clinical_response",
+                    "description": "Improvement in at least one symptom from baseline (e.g., decreased pain or stiffness, improved function).",
+                    "criticality": "required",
+                    "parameters": {
+                      "examples": [
+                        "decreased pain or stiffness",
+                        "improved function"
+                      ]
+                    },
+                    "chart_fact_key": "symptom_improvement_note",
+                    "fhir_resource_hint": "Observation",
+                    "source": {
+                      "page": 9,
+                      "section": "Coverage Policy - Cimzia (IP0672)"
+                    }
+                  }
+                ]
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.cont.dosing",
+                "criterion_type": "dosing_per_fda_label",
+                "description": "400mg SC q4wk OR 200mg SC q2wk.",
+                "criticality": "required",
+                "parameters": {},
+                "chart_fact_key": "requested_dose_and_frequency",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 9,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              },
+              {
+                "node_type": "criterion",
+                "criterion_id": "cz_other_spa.cont.combo_excl",
+                "criterion_type": "combination_exclusion",
+                "description": "Must not be used concurrently with another biologic or targeted synthetic oral small molecule drug for an inflammatory condition (conventional synthetic DMARDs are allowed).",
+                "criticality": "required",
+                "parameters": {
+                  "excluded_drug_classes": [
+                    "adalimumab (Humira, biosimilars)",
+                    "certolizumab pegol (Cimzia)",
+                    "etanercept (Enbrel, biosimilars)",
+                    "infliximab (Remicade, biosimilars)",
+                    "infliximab-dyyb (Zymfentra)",
+                    "golimumab (Simponi, Simponi Aria)",
+                    "tocilizumab (Actemra IV/SC, biosimilars)",
+                    "sarilumab (Kevzara)",
+                    "abatacept (Orencia IV/SC)",
+                    "rituximab (Rituxan, biosimilars)",
+                    "anakinra (Kineret)",
+                    "mirikizumab (Omvoh)",
+                    "ustekinumab (Stelara IV/SC, biosimilars)",
+                    "brodalumab (Siliq)",
+                    "secukinumab (Cosentyx)",
+                    "ixekizumab (Taltz)",
+                    "bimekizumab-bkzx (Bimzelx)",
+                    "tildrakizumab-asmn (Ilumya)",
+                    "risankizumab-rzaa (Skyrizi)",
+                    "guselkumab (Tremfya)",
+                    "vedolizumab (Entyvio)",
+                    "apremilast (Otezla, Otezla XR)",
+                    "abrocitinib (Cibinqo)",
+                    "baricitinib (Olumiant)",
+                    "ritlecitinib (Litfulo)",
+                    "deuruxolitinib (Leqselvi)",
+                    "upadacitinib (Rinvoq, Rinvoq LQ)",
+                    "deucravacitinib (Sotyktu)",
+                    "tofacitinib (Xeljanz, Xeljanz XR)",
+                    "ozanimod (Zeposia)",
+                    "etrasimod (Velsipity)"
+                  ],
+                  "allowed_concurrent": [
+                    "methotrexate",
+                    "leflunomide",
+                    "hydroxychloroquine",
+                    "sulfasalazine"
+                  ]
+                },
+                "chart_fact_key": "current_medications",
+                "fhir_resource_hint": "MedicationRequest",
+                "source": {
+                  "page": 10,
+                  "section": "Coverage Policy - Cimzia (IP0672)"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "exclusions": [],
+  "review": {
+    "reviewer": null,
+    "reviewed_date": null,
+    "notes": [
+      "Auto-drafted from Cigna coverage policy PDF text; requires human clinical + coding review before production use.",
+      "icd10_codes left empty per indication -- map via NLM Clinical Tables API before use.",
+      "admin_cpt_codes empty -- source PDF lists only the drug HCPCS J-code, not administration CPT codes."
+    ]
+  },
+  "step_therapy_dependency": {
+    "type": "preferred_product_required",
+    "status": "NOT_YET_OBTAINED",
+    "referenced_policies": [
+      "PSM001 (Standard/Performance, Value/Advantage, Total Savings Drug Lists)",
+      "PSM017 (Legacy Drug Lists)",
+      "PSM002 (Individual and Family Plans)"
+    ],
+    "note": "This drug requires trial/use of preferred products per a separate Cigna Preferred Specialty Management (PSM) policy not contained in this PDF. Record is incomplete for step-therapy purposes until that policy is obtained."
+  }
+}

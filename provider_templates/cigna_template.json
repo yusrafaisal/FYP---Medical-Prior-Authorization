@@ -1,0 +1,48 @@
+{
+  "payer_id": "cigna",
+  "payer_name": "Cigna",
+  "version": "1.0",
+  "section_map": {
+    "keep": {
+      "Overview": ["OVERVIEW"],
+      "Coverage Policy": ["Coverage Policy", "POLICY STATEMENT"],
+      "Conditions Not Covered": ["Conditions Not Covered"],
+      "Coding Information": ["Coding Information"],
+      "Revision Details": ["Revision Details"],
+      "Appendix": ["APPENDIX"],
+      "Header": ["Coverage Policy Number", "Effective Date", "Policy Title"]
+    },
+    "skip": [
+      "INSTRUCTIONS FOR USE",
+      "Guidelines",
+      "Clinical Efficacy",
+      "References"
+    ]
+  },
+  "tier_detection": {
+    "pattern": ["medically necessary"],
+    "style": "single_tier",
+    "notes": "Cigna drug coverage policies use one tier only ('considered medically necessary when ONE of the following is met'), unlike UHC's proven/medically-necessary dual tier. Map all criteria sets to tier='medically_necessary'."
+  },
+  "indication_detection": {
+    "style": "numbered_list",
+    "pattern": "^\\d+\\.\\s+.+\\. Approve for",
+    "phase_keywords": {
+      "initial": ["Initial Therapy"],
+      "continuation": ["Currently Receiving", "Patient is Currently Receiving", "Already Received"]
+    },
+    "notes": "Each numbered indication (1., 2., 3'...) contains its own A) Initial Therapy / B) Currently Receiving split. 'Other Uses with Supportive Evidence' indications (not FDA-approved) should be flagged with coverage_status='covered_supportive_evidence' rather than 'covered'."
+  },
+  "step_therapy_dependency_detection": {
+    "trigger_phrase": "This product also requires the use of preferred products before approval",
+    "notes": "When present, this points to a separate Cigna Preferred Specialty Management (PSM) policy not contained in the drug coverage policy PDF itself. Extractor must flag record as incomplete for step-therapy purposes and list the referenced PSM policy numbers verbatim (e.g., PSM001, PSM017, PSM002) rather than guessing their contents."
+  },
+  "combination_exclusion_detection": {
+    "trigger_phrase": "should not be administered in combination with another biologic or with a targeted synthetic oral small molecule drug",
+    "allowed_concurrent_phrase": "does NOT exclude the use of conventional synthetic DMARDs",
+    "notes": "Excluded drug list comes from the policy's own APPENDIX table (Biologics + Oral Therapies/Targeted Synthetic Oral Small Molecule Drugs sections), not a separate document."
+  },
+  "coding_notes": {
+    "notes": "Cigna PDFs consistently provide only the drug's HCPCS J-code under 'Coding Information'. No administration CPT codes (e.g., 96413/96415) are listed in the source text -- extractor must leave admin_cpt_codes empty and flag for clinic-billing confirmation rather than inferring a CPT code."
+  }
+}
